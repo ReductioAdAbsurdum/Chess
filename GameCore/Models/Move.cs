@@ -8,13 +8,13 @@ namespace GameCore
         public readonly Square end;
         public readonly PieceType promotionPiece;
 
-        public Move(Square origin, Square end)
+        internal Move(Square origin, Square end)
         {
             this.origin = origin;
             this.end = end;
             promotionPiece = PieceType.Pawn;
-        }         
-        public Move(Square origin, Square end, PieceType promotionPiece)
+        }
+        internal Move(Square origin, Square end, PieceType promotionPiece)
         {
             this.origin = origin;
             this.end = end;
@@ -28,5 +28,5 @@ namespace GameCore
         {
             return origin.GetHashCode() * 1000 + end.GetHashCode() * 10 + (int)promotionPiece;
         }
-        }
     }
+}
