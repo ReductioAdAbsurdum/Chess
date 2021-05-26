@@ -25,16 +25,16 @@ namespace GameCore
             return output;
         }
 
-        private static HashSet<Move> PieceLegalMoves(Square origin, Color color , PieceType piece)
+        private static HashSet<Move> PieceLegalMoves(Square start, Color color , PieceType piece)
         {
             switch (piece)
             {
                 //case PieceType.Pawn:
-                //case PieceType.Rook:
-                //case PieceType.Bishop:
-                case PieceType.Knight: return Knight.LegalMoves(origin, color);
-                case PieceType.King: return King.LegalMoves(origin, color);
-                //case PieceType.Queen:
+                case PieceType.Rook: return Rook.LegalMoves(start, color);
+                case PieceType.Bishop: return Bishop.LegalMoves(start, color);
+                case PieceType.Knight: return Knight.LegalMoves(start, color);
+                case PieceType.King: return King.LegalMoves(start, color);
+                case PieceType.Queen: return Queen.LegalMoves(start, color);
             }
 
             return new HashSet<Move>();

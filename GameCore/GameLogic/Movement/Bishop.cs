@@ -4,45 +4,81 @@ namespace GameCore
 {
     internal static class Bishop
     {
-        internal static HashSet<Square> AttackingSquares(Square origin)
+        internal static HashSet<Square> AttackingSquares(Square start)
         {
             HashSet<Square> output = new HashSet<Square>();
 
             // UpRight
-            for (byte i = 1; origin.file + i <= 8 && origin.rank + i <= 8; i++)
+            for (byte i = 1; start.file + i <= 8 && start.rank + i <= 8; i++)
             {
-                Square tempPosition = new Square((byte)(origin.file + i), (byte)(origin.rank + i));
+                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank + i));
                 output.Add(tempPosition);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
-
             }
             // UpLeft
-            for (byte i = 1; origin.file - i <= 8 && origin.rank + i <= 8; i++)
+            for (byte i = 1; start.file - i >= 1 && start.rank + i <= 8; i++)
             {
-                Square tempPosition = new Square((byte)(origin.file - i), (byte)(origin.rank + i));
+                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank + i));
                 output.Add(tempPosition);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
-
             }
             // DownRight
-            for (byte i = 1; origin.file + i <= 8 && origin.rank - i <= 8; i++)
+            for (byte i = 1; start.file + i <= 8 && start.rank - i >= 1; i++)
             {
-                Square tempPosition = new Square((byte)(origin.file + i), (byte)(origin.rank - i));
+                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank - i));
                 output.Add(tempPosition);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
-
             }
             // DownLeft
-            for (byte i = 1; origin.file - i <= 8 && origin.rank - i <= 8; i++)
+            for (byte i = 1; start.file - i >= 1  && start.rank - i >= 1; i++)
             {
-                Square tempPosition = new Square((byte)(origin.file - i), (byte)(origin.rank - i));
+                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank - i));
                 output.Add(tempPosition);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
+            }
 
+            return output;
+        }
+
+        internal static HashSet<Move> LegalMoves(Square start, Color color)
+        {
+            HashSet<Move> output = new HashSet<Move>();
+
+            // UpRight
+            for (byte i = 1; start.file + i <= 8 && start.rank + i <= 8; i++)
+            {
+                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank + i));
+                output.AddMoveIfValid(start, tempPosition, color);
+
+                if (GameState.Board.ContainsKey(tempPosition)) break;
+            }
+            // UpLeft
+            for (byte i = 1; start.file - i  >= 1 && start.rank + i <= 8; i++)
+            {
+                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank + i));
+                output.AddMoveIfValid(start, tempPosition, color);
+
+                if (GameState.Board.ContainsKey(tempPosition)) break;
+            }
+            // DownRight
+            for (byte i = 1; start.file + i <= 8 && start.rank - i >=1 ; i++)
+            {
+                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank - i));
+                output.AddMoveIfValid(start, tempPosition, color);
+
+                if (GameState.Board.ContainsKey(tempPosition)) break;
+            }
+            // DownLeft
+            for (byte i = 1; start.file - i >= 1 && start.rank - i >= 1 ; i++)
+            {
+                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank - i));
+                output.AddMoveIfValid(start, tempPosition, color);
+
+                if (GameState.Board.ContainsKey(tempPosition)) break;
             }
 
             return output;
