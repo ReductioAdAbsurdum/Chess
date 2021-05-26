@@ -91,7 +91,7 @@ namespace GameCore
 
                 case PieceType.Bishop: return Bishop.AttackingSquares(origin).Contains(target);
 
-                case PieceType.Knight: return Knight.AttackingSquares(origin).Contains(target);
+                case PieceType.Knight: return Knight.AttackingSquare(origin, target);
 
                 case PieceType.King: return King.AttackingSquares(origin).Contains(target);
 

@@ -8,7 +8,7 @@ namespace GameCore
         {
             HashSet<Move> output = new HashSet<Move>();
 
-            var squares = new List<Square>(GameState.Board.Keys);
+            List<Square> squares = new List<Square>(GameState.Board.Keys);
 
             for (int i = 0; i < squares.Count; i++)
             {
