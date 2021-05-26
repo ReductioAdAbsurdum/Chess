@@ -94,7 +94,7 @@ namespace GameCore
             for (byte i = 1; start.file + i <= 8; i++)
             {
                 Square tempPosition = new Square((byte)(start.file + i), start.rank);
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -102,7 +102,7 @@ namespace GameCore
             for (byte i = 1; start.file - i >= 1; i++)
             {
                 Square tempPosition = new Square((byte)(start.file - i), start.rank);
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -110,7 +110,7 @@ namespace GameCore
             for (byte i = 1; start.rank + i <= 8; i++)
             {
                 Square tempPosition = new Square(start.file, (byte)(start.rank + i));
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -118,7 +118,7 @@ namespace GameCore
             for (byte i = 1; start.rank - i >= 1; i++)
             {
                 Square tempPosition = new Square(start.file, (byte)(start.rank - i));
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -129,7 +129,7 @@ namespace GameCore
             for (byte i = 1; start.file + i <= 8 && start.rank + i <= 8; i++)
             {
                 Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank + i));
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -137,7 +137,7 @@ namespace GameCore
             for (byte i = 1; start.file - i >= 1 && start.rank + i <= 8; i++)
             {
                 Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank + i));
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -145,7 +145,7 @@ namespace GameCore
             for (byte i = 1; start.file + i <= 8 && start.rank - i >= 1; i++)
             {
                 Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank - i));
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }
@@ -153,7 +153,7 @@ namespace GameCore
             for (byte i = 1; start.file - i >= 1 && start.rank - i >= 1; i++)
             {
                 Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank - i));
-                output.AddMoveIfValid(start, tempPosition, color);
+                output.AddMove(start, tempPosition, color);
 
                 if (GameState.Board.ContainsKey(tempPosition)) break;
             }

@@ -46,46 +46,46 @@ namespace GameCore
             // Up
             if (start.rank <= 7) 
             {
-                output.AddMoveIfValid(start, new Square((byte)(start.file), (byte)(start.rank + 1)), color);
+                output.AddMove(start, new Square((byte)(start.file), (byte)(start.rank + 1)), color);
             }
             // Down
             if (start.rank >= 2) 
             {
-                output.AddMoveIfValid(start, new Square((byte)(start.file), (byte)(start.rank - 1)), color);
+                output.AddMove(start, new Square((byte)(start.file), (byte)(start.rank - 1)), color);
             }
 
             if (start.file <= 7)
             {
                 //Right
-                output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank)), color);
+                output.AddMove(start, new Square((byte)(start.file + 1), (byte)(start.rank)), color);
 
                 // UpRight
                 if (start.rank <= 7)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank + 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file + 1), (byte)(start.rank + 1)), color);
                 }
 
                 // DownRight
                 if (start.rank >= 2) 
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank - 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file + 1), (byte)(start.rank - 1)), color);
                 }
             }
             if (start.file >= 2)
             {
                 //Left
-                output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank)), color);
+                output.AddMove(start, new Square((byte)(start.file - 1), (byte)(start.rank)), color);
 
                 // UpLeft
                 if (start.rank <= 7) 
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank + 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file - 1), (byte)(start.rank + 1)), color);
                 }
 
                 // DownLeft
                 if (start.rank >= 2) 
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank - 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file - 1), (byte)(start.rank - 1)), color);
                 }
             }
 

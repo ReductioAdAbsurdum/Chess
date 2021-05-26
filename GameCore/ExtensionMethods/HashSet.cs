@@ -5,7 +5,7 @@ namespace GameCore
 {
     public static class HashSet
     {
-        internal static void AddMoveIfValid(this HashSet<Move> h, Square start, Square end, Color color) 
+        internal static void AddMove(this HashSet<Move> h, Square start, Square end, Color color) 
         {
             if (GameState.Board.ContainsKey(end) == false)
             {
@@ -18,7 +18,7 @@ namespace GameCore
                 if (!UnderCheck.AfterMove(m)) h.Add(m);
             }
         }
-        internal static void AddPawnMoveIfValid(this HashSet<Move> h, Square start, Square end, Color color)
+        internal static void AddPawnMove(this HashSet<Move> h, Square start, Square end, Color color)
         {
             if (GameState.Board.ContainsKey(end) == false)
             {                              
@@ -57,44 +57,50 @@ namespace GameCore
 
                 Move m = new Move(start, end);
                 if (!UnderCheck.AfterMove(m)) h.Add(m);
-            }
-            else if (GameState.Board[end].color != color)
+            }          
+        }
+        internal static void AddPawnAttackMove(this HashSet<Move> h, Square start, Square end, Color color)       
+        {
+            if (GameState.Board.ContainsKey(end)) 
             {
-                if (end.rank == 8 && color == Color.White) // White Promotion square
+                if (GameState.Board[end].color != color)
                 {
-                    Move b = new Move(start, end, PieceType.Bishop);
-                    if (!UnderCheck.AfterMove(b)) h.Add(b);
+                    if (end.rank == 8 && color == Color.White) // White Promotion square
+                    {
+                        Move b = new Move(start, end, PieceType.Bishop);
+                        if (!UnderCheck.AfterMove(b)) h.Add(b);
 
-                    Move r = new Move(start, end, PieceType.Rook);
-                    if (!UnderCheck.AfterMove(r)) h.Add(r);
+                        Move r = new Move(start, end, PieceType.Rook);
+                        if (!UnderCheck.AfterMove(r)) h.Add(r);
 
-                    Move k = new Move(start, end, PieceType.Knight);
-                    if (!UnderCheck.AfterMove(k)) h.Add(k);
+                        Move k = new Move(start, end, PieceType.Knight);
+                        if (!UnderCheck.AfterMove(k)) h.Add(k);
 
-                    Move q = new Move(start, end, PieceType.Queen);
-                    if (!UnderCheck.AfterMove(q)) h.Add(q);
+                        Move q = new Move(start, end, PieceType.Queen);
+                        if (!UnderCheck.AfterMove(q)) h.Add(q);
 
-                    return;
+                        return;
+                    }
+                    if (end.rank == 0 && color == Color.Black) // Black Promotion square
+                    {
+                        Move b = new Move(start, end, PieceType.Bishop);
+                        if (!UnderCheck.AfterMove(b)) h.Add(b);
+
+                        Move r = new Move(start, end, PieceType.Rook);
+                        if (!UnderCheck.AfterMove(r)) h.Add(r);
+
+                        Move k = new Move(start, end, PieceType.Knight);
+                        if (!UnderCheck.AfterMove(k)) h.Add(k);
+
+                        Move q = new Move(start, end, PieceType.Queen);
+                        if (!UnderCheck.AfterMove(q)) h.Add(q);
+
+                        return;
+                    }
+
+                    Move m = new Move(start, end);
+                    if (!UnderCheck.AfterMove(m)) h.Add(m);
                 }
-                if (end.rank == 0 && color == Color.Black) // Black Promotion square
-                {
-                    Move b = new Move(start, end, PieceType.Bishop);
-                    if (!UnderCheck.AfterMove(b)) h.Add(b);
-
-                    Move r = new Move(start, end, PieceType.Rook);
-                    if (!UnderCheck.AfterMove(r)) h.Add(r);
-
-                    Move k = new Move(start, end, PieceType.Knight);
-                    if (!UnderCheck.AfterMove(k)) h.Add(k);
-
-                    Move q = new Move(start, end, PieceType.Queen);
-                    if (!UnderCheck.AfterMove(q)) h.Add(q);
-
-                    return;
-                }
-
-                Move m = new Move(start, end);
-                if (!UnderCheck.AfterMove(m)) h.Add(m);
             }
         }
     }

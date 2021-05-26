@@ -54,12 +54,12 @@ namespace GameCore
                 // Up
                 if (start.rank <= 7)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file + 2), (byte)(start.rank + 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file + 2), (byte)(start.rank + 1)), color);
                 }
                 // Down
                 if (start.rank >= 2)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file + 2), (byte)(start.rank - 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file + 2), (byte)(start.rank - 1)), color);
                 }
             }
             // Two Left
@@ -68,12 +68,12 @@ namespace GameCore
                 // Up
                 if (start.rank <= 7)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file - 2), (byte)(start.rank + 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file - 2), (byte)(start.rank + 1)), color);
                 }
                 // Down
                 if (start.rank >= 2)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file - 2), (byte)(start.rank - 1)), color);
+                    output.AddMove(start, new Square((byte)(start.file - 2), (byte)(start.rank - 1)), color);
                 }
             }
             // Two Up
@@ -82,12 +82,12 @@ namespace GameCore
                 // Right
                 if (start.file <= 7)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank + 2)), color);
+                    output.AddMove(start, new Square((byte)(start.file + 1), (byte)(start.rank + 2)), color);
                 }
                 // Left
                 if (start.file >= 2)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank + 2)), color);
+                    output.AddMove(start, new Square((byte)(start.file - 1), (byte)(start.rank + 2)), color);
                 }
             }
             // Two Down
@@ -96,12 +96,12 @@ namespace GameCore
                 // Right
                 if (start.file <= 7)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank - 2)), color);
+                    output.AddMove(start, new Square((byte)(start.file + 1), (byte)(start.rank - 2)), color);
                 }
                 // Left
                 if (start.file >= 2)
                 {
-                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank - 2)), color);
+                    output.AddMove(start, new Square((byte)(start.file - 1), (byte)(start.rank - 2)), color);
                 }
             }
 
