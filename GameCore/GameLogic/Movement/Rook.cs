@@ -4,44 +4,62 @@ namespace GameCore
 {
     internal static class Rook
     {
-        internal static HashSet<Square> AttackingSquares(Square start)
+        internal static bool AttackingSquare(Square start, Square end)
         {
-            HashSet<Square> output = new HashSet<Square>();
+            if (start.rank != end.rank && start.file != end.file) return false;
 
-            // Right
-            for (byte i = 1; start.file + i <= 8; i++)
+            if (start.rank == end.rank) 
             {
-                Square tempPosition = new Square((byte)(start.file + i), start.rank);
-                output.Add(tempPosition);
+                if (start.file < end.file)
+                {
+                    // Right
+                    for (byte i = 1; start.file + i <= end.file; i++)
+                    {
+                        Square tempPosition = new Square((byte)(start.file + i), start.rank);
+                        if (tempPosition.Equals(end)) return true;
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                    }
+                }
+                else
+                {
+                    // Left
+                    for (byte i = 1; start.file - i >= end.file; i++)
+                    {
+                        Square tempPosition = new Square((byte)(start.file - i), start.rank);
+                        if (tempPosition.Equals(end)) return true;
+
+                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                    }
+                }
             }
-            // Left
-            for (byte i = 1; start.file - i >= 1; i++)
+            if (start.file == end.file)
             {
-                Square tempPosition = new Square((byte)(start.file - i), start.rank);
-                output.Add(tempPosition);
+                if (start.rank < end.rank)
+                {
+                    // Up
+                    for (byte i = 1; start.rank + i <= end.rank; i++)
+                    {
+                        Square tempPosition = new Square(start.file, (byte)(start.rank + i));
+                        if (tempPosition.Equals(end)) return true;
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                    }
+                }
+                else
+                {
+                    // Down
+                    for (byte i = 1; start.rank - i >= end.rank; i++)
+                    {
+                        Square tempPosition = new Square(start.file, (byte)(start.rank - i));
+                        if (tempPosition.Equals(end)) return true;
+
+                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                    }
+                }
             }
-            // Up
-            for (byte i = 1; start.rank + i <= 8; i++)
-            {
-                Square tempPosition = new Square(start.file, (byte)(start.rank + i));
-                output.Add(tempPosition);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
-            }
-            // Down
-            for (byte i = 1; start.rank - i >= 1; i++)
-            {
-                Square tempPosition = new Square(start.file, (byte)(start.rank - i));
-                output.Add(tempPosition);
-
-                if (GameState.Board.ContainsKey(tempPosition)) break;
-            }
-
-            return output;
+            return false;
         }
         internal static HashSet<Move> LegalMoves(Square start, Color color)
         {

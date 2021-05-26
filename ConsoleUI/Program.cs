@@ -7,9 +7,9 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/8/8/8/8/8/8/RNBQKBNR w KQkq - 0 1");
 
-            var y = LegalMoves.GetAll();
+            var y = LegalMoves.GetAll(); // 26ms
             var X = LegalMoves.GetAll();
 
 

@@ -87,7 +87,7 @@ namespace GameCore
             {
                 case PieceType.Pawn: return Pawn.AttackingSquares(origin).Contains(target);
 
-                case PieceType.Rook: return Rook.AttackingSquares(origin).Contains(target);
+                case PieceType.Rook: return Rook.AttackingSquare(origin, target);
 
                 case PieceType.Bishop: return Bishop.AttackingSquares(origin).Contains(target);
 

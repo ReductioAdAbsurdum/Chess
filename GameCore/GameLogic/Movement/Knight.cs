@@ -5,13 +5,13 @@ namespace GameCore
 {
     internal static class Knight
     {
-        internal static bool AttackingSquare(Square origin, Square target)
+        internal static bool AttackingSquare(Square start, Square end)
         {
-            if ((origin.file + origin.rank + target.file + target.rank) % 2 == 0) return false;
+            if ((start.file + start.rank + end.file + end.rank) % 2 == 0) return false;
 
-            if (Math.Abs(origin.rank - target.rank) == 2 && Math.Abs(origin.file - target.file) == 1) return true;
+            if (Math.Abs(start.rank - end.rank) == 2 && Math.Abs(start.file - end.file) == 1) return true;
 
-            if (Math.Abs(origin.rank - target.rank) == 1 && Math.Abs(origin.file - target.file) == 2) return true;
+            if (Math.Abs(start.rank - end.rank) == 1 && Math.Abs(start.file - end.file) == 2) return true;
 
             return false;
         }
