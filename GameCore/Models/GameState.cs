@@ -6,7 +6,7 @@ namespace GameCore
     {
         internal static Dictionary<Square, Piece> Board = new Dictionary<Square, Piece>();
 
-        internal static bool castleWhite_OO = true;
+        internal static bool CastleWhite_OO = true;
         internal static bool CastleWhite_OOO = true;
         internal static bool CastleBlack_OO = true;
         internal static bool CastleBlack_OOO= true;
