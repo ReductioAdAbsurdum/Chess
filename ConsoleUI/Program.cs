@@ -9,6 +9,7 @@ namespace ConsoleUI
         {
             Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
+            var y = LegalMoves.GetAll();
             var x = Fen.GetCurrentFen();
         }
     }
