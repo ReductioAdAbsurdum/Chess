@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public static class FEN
+    public static class Fen
     {
         public static void SetBoardByFen(string record)
         {
@@ -53,7 +53,6 @@ namespace GameCore
             }
 
             // Field #4 - En passant file
-
             if (fields[3] != "-") GameState.EnPassantFile = byte.Parse(fields[3][1].ToString());
 
             // Field #5 - Halfmove number
@@ -105,6 +104,11 @@ namespace GameCore
             output += GameState.MoveNumber.ToString();
 
             return output;
+        }
+        public static bool ValidFen() 
+        {
+            // TODO - Implement Fen validator
+            throw new NotImplementedException();
         }
 
         internal static string BoardToString()
