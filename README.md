@@ -1,2 +1,2 @@
 # Chess
-Just a Chess game, or is IT :)
+Standard Chess game with room for future improvements
