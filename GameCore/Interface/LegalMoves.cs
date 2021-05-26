@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 
 namespace GameCore
 {
@@ -35,7 +33,7 @@ namespace GameCore
                 //case PieceType.Rook:
                 //case PieceType.Bishop:
                 case PieceType.Knight: return Knight.LegalMoves(origin, color);
-                //case PieceType.King:
+                case PieceType.King: return King.LegalMoves(origin, color);
                 //case PieceType.Queen:
             }
 

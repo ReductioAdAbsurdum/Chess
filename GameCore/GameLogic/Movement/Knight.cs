@@ -44,153 +44,64 @@ namespace GameCore
             return output;
         }
 
-        internal static HashSet<Move> LegalMoves(Square origin, Color color)
+        internal static HashSet<Move> LegalMoves(Square start, Color color)
         {
             HashSet<Move> output = new HashSet<Move>();
 
             // Two Right
-            if (origin.file <= 6)
+            if (start.file <= 6)
             {
                 // Up
-                if (origin.rank <= 7)
+                if (start.rank <= 7)
                 {
-                    Square end = new Square((byte)(origin.file + 2), (byte)(origin.rank + 1));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-
+                    output.AddMoveIfValid(start, new Square((byte)(start.file + 2), (byte)(start.rank + 1)), color);
                 }
                 // Down
-                if (origin.rank >= 2)
+                if (start.rank >= 2)
                 {
-                    Square end = new Square((byte)(origin.file + 2), (byte)(origin.rank - 1));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file + 2), (byte)(start.rank - 1)), color);
                 }
             }
             // Two Left
-            if (origin.file >= 3)
+            if (start.file >= 3)
             {
                 // Up
-                if (origin.rank <= 7)
+                if (start.rank <= 7)
                 {
-                    Square end = new Square((byte)(origin.file - 2), (byte)(origin.rank + 1));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file - 2), (byte)(start.rank + 1)), color);
                 }
                 // Down
-                if (origin.rank >= 2)
+                if (start.rank >= 2)
                 {
-                    Square end = new Square((byte)(origin.file - 2), (byte)(origin.rank - 1));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file - 2), (byte)(start.rank - 1)), color);
                 }
             }
             // Two Up
-            if (origin.rank <= 6)
+            if (start.rank <= 6)
             {
                 // Right
-                if (origin.file <= 7)
+                if (start.file <= 7)
                 {
-                    Square end = new Square((byte)(origin.file + 1), (byte)(origin.rank + 2));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank + 2)), color);
                 }
                 // Left
-                if (origin.file >= 2)
+                if (start.file >= 2)
                 {
-                    Square end = new Square((byte)(origin.file - 1), (byte)(origin.rank + 2));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank + 2)), color);
                 }
             }
             // Two Down
-            if (origin.rank >= 3)
+            if (start.rank >= 3)
             {
                 // Right
-                if (origin.file <= 7)
+                if (start.file <= 7)
                 {
-                    Square end = new Square((byte)(origin.file + 1), (byte)(origin.rank - 2));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank - 2)), color);
                 }
                 // Left
-                if (origin.file >= 2)
+                if (start.file >= 2)
                 {
-                    Square end = new Square((byte)(origin.file - 1), (byte)(origin.rank - 2));
-
-                    if (GameState.Board.ContainsKey(end) == false)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
-                    else if (GameState.Board[end].color != color)
-                    {
-                        Move m = new Move(origin, end);
-                        if (!UnderCheck.AfterMove(m)) output.Add(m);
-                    }
+                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank - 2)), color);
                 }
             }
 

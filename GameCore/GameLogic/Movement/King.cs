@@ -4,36 +4,89 @@ namespace GameCore
 {
     internal static class King
     {
-        internal static HashSet<Square> AttackingSquares(Square origin)
+        internal static HashSet<Square> AttackingSquares(Square start)
         {
             HashSet<Square> output = new HashSet<Square>();
 
             // Up
-            if (origin.rank <= 7) output.Add(new Square(origin.file, (byte)(origin.rank + 1)));
+            if (start.rank <= 7) output.Add(new Square(start.file, (byte)(start.rank + 1)));
             // Down
-            if (origin.file >= 2) output.Add(new Square(origin.file, (byte)(origin.rank - 1)));
+            if (start.rank >= 2) output.Add(new Square(start.file, (byte)(start.rank - 1)));
 
-            if (origin.file <= 7)
+            if (start.file <= 7)
             {
                 //Right
-                output.Add(new Square((byte)(origin.file + 1), origin.rank));
+                output.Add(new Square((byte)(start.file + 1), start.rank));
 
                 // UpRight
-                if (origin.rank <= 7) output.Add(new Square((byte)(origin.file + 1), (byte)(origin.rank + 1)));
+                if (start.rank <= 7) output.Add(new Square((byte)(start.file + 1), (byte)(start.rank + 1)));
 
                 // DownRight
-                if (origin.rank >= 2) output.Add(new Square((byte)(origin.file + 1), (byte)(origin.rank - 1)));
+                if (start.rank >= 2) output.Add(new Square((byte)(start.file + 1), (byte)(start.rank - 1)));
             }
-            if (origin.file >= 2)
+            if (start.file >= 2)
             {
                 //Left
-                output.Add(new Square((byte)(origin.file - 1), origin.rank));
+                output.Add(new Square((byte)(start.file - 1), start.rank));
 
                 // UpLeft
-                if (origin.rank <= 7) output.Add(new Square((byte)(origin.file - 1), (byte)(origin.rank + 1)));
+                if (start.rank <= 7) output.Add(new Square((byte)(start.file - 1), (byte)(start.rank + 1)));
 
                 // DownLeft
-                if (origin.rank >= 2) output.Add(new Square((byte)(origin.file - 1), (byte)(origin.rank - 1)));
+                if (start.rank >= 2) output.Add(new Square((byte)(start.file - 1), (byte)(start.rank - 1)));
+            }
+
+            return output;
+        }
+
+        internal static HashSet<Move> LegalMoves(Square start, Color color)
+        {
+            HashSet<Move> output = new HashSet<Move>();
+
+            // Up
+            if (start.rank <= 7) 
+            {
+                output.AddMoveIfValid(start, new Square((byte)(start.file), (byte)(start.rank + 1)), color);
+            }
+            // Down
+            if (start.rank >= 2) 
+            {
+                output.AddMoveIfValid(start, new Square((byte)(start.file), (byte)(start.rank - 1)), color);
+            }
+
+            if (start.file <= 7)
+            {
+                //Right
+                output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank)), color);
+
+                // UpRight
+                if (start.rank <= 7)
+                {
+                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank + 1)), color);
+                }
+
+                // DownRight
+                if (start.rank >= 2) 
+                {
+                    output.AddMoveIfValid(start, new Square((byte)(start.file + 1), (byte)(start.rank - 1)), color);
+                }
+            }
+            if (start.file >= 2)
+            {
+                //Left
+                output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank)), color);
+
+                // UpLeft
+                if (start.rank <= 7) 
+                {
+                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank + 1)), color);
+                }
+
+                // DownLeft
+                if (start.rank >= 2) 
+                {
+                    output.AddMoveIfValid(start, new Square((byte)(start.file - 1), (byte)(start.rank - 1)), color);
+                }
             }
 
             return output;

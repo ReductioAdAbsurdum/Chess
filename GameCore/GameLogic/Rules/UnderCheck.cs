@@ -4,21 +4,34 @@ namespace GameCore
 {
     internal static class UnderCheck
     {
-
         internal static bool CurrentPlayer() 
         {
-            return GameState.CurrentPlayer == Color.White ? White() : Black();
+            if (GameState.CurrentPlayer == Color.White) return BlackAttackingSquare(GameState.WhiteKingPosition);
+            
+            return WhiteAttackingSquare(GameState.BlackKingPosition);
         }
         internal static bool AfterMove(Move move) 
         {
             // Save pieces
-            Piece startPiece = new(GameState.Board[move.start].color, GameState.Board[move.start].type);
+            Piece startPiece = new(GameState.Board[move.start].color, GameState.Board[move.start].type);           
         
             Piece endPiece = new Piece();  
             bool endHavePiece = GameState.Board.ContainsKey(move.end);
             if (endHavePiece) endPiece = new(GameState.Board[move.end].color, GameState.Board[move.end].type);
 
             // Make move
+            if (startPiece.type == PieceType.King)
+            {
+                if (startPiece.color == Color.White)
+                {
+                    GameState.WhiteKingPosition = move.end;
+                }
+                else 
+                {
+                    GameState.BlackKingPosition = move.end;
+                }
+            }
+
             if (endHavePiece) GameState.Board.Remove(move.end);
             GameState.Board.Remove(move.start);
             GameState.Board.Add(move.end, startPiece);
@@ -27,6 +40,17 @@ namespace GameCore
             bool underCheck = CurrentPlayer();
 
             // Back to normal
+            if (startPiece.type == PieceType.King)
+            {
+                if (startPiece.color == Color.White)
+                {
+                    GameState.WhiteKingPosition = move.start;
+                }
+                else
+                {
+                    GameState.BlackKingPosition = move.start;
+                }
+            }
             GameState.Board.Remove(move.end);
             GameState.Board.Add(move.start, startPiece);
             
@@ -34,24 +58,25 @@ namespace GameCore
 
             return underCheck;
         }
-        private static bool White()
-        {
-            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
-            {
-                if (pair.Value.color == Color.White) continue;
 
-                if (PieceAttackingSquare(pair.Key, GameState.WhiteKingPosition)) return true;
-            }
-
-            return false;
-        }
-        private static bool Black()
+        internal static bool WhiteAttackingSquare(Square square) 
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
             {
                 if (pair.Value.color == Color.Black) continue;
 
-                if (PieceAttackingSquare(pair.Key, GameState.WhiteKingPosition)) return true;
+                if (PieceAttackingSquare(pair.Key, square)) return true;
+            }
+
+            return false;
+        }
+        internal static bool BlackAttackingSquare(Square square)
+        {
+            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
+            {
+                if (pair.Value.color == Color.White) continue;
+
+                if (PieceAttackingSquare(pair.Key, square)) return true;
             }
 
             return false;
