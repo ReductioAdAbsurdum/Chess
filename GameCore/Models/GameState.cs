@@ -4,7 +4,7 @@ namespace GameCore
 {
     internal static class GameState
     {
-        internal static Dictionary<Square, Piece> board = new Dictionary<Square, Piece>();
+        internal static Dictionary<Square, Piece> Board = new Dictionary<Square, Piece>();
 
         internal static bool castleWhite_OO = true;
         internal static bool CastleWhite_OOO = true;

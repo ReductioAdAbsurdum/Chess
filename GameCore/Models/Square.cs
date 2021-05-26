@@ -4,8 +4,8 @@ namespace GameCore
 {
     public struct Square : IEquatable<Square>
     {
-        public byte file;
-        public byte rank;
+        public readonly byte file;
+        public readonly byte rank;
 
         public Square(byte file, byte rank)
         {

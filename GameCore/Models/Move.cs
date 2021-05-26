@@ -4,9 +4,9 @@ namespace GameCore
 {
     public struct Move : IEquatable<Move>
     {
-        public Square origin;
-        public Square end;
-        public PieceType promotionPiece;
+        public readonly Square origin;
+        public readonly Square end;
+        public readonly PieceType promotionPiece;
 
         public Move(Square origin, Square end)
         {
