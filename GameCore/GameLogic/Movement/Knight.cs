@@ -59,12 +59,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
 
                 }
@@ -76,12 +76,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
             }
@@ -96,12 +96,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
                 // Down
@@ -112,12 +112,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
             }
@@ -132,12 +132,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
                 // Left
@@ -148,12 +148,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
             }
@@ -168,12 +168,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
                 // Left
@@ -184,12 +184,12 @@ namespace GameCore
                     if (GameState.Board.ContainsKey(end) == false)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                     else if (GameState.Board[end].color != color)
                     {
                         Move m = new Move(origin, end);
-                        if (UnderCheck.CheckAfterMove(m)) output.Add(m);
+                        if (!UnderCheck.AfterMove(m)) output.Add(m);
                     }
                 }
             }

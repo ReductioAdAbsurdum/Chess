@@ -4,32 +4,13 @@ namespace GameCore
 {
     internal static class UnderCheck
     {
-        internal static bool White()
-        {
-            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
-            {
-                if (pair.Value.color == Color.White) continue;
-                  
-                if (PieceAttackingSquare(pair.Key, GameState.WhiteKingPosition)) return true;
-            }
 
-            return false;
+        internal static bool CurrentPlayer() 
+        {
+            return GameState.CurrentPlayer == Color.White ? White() : Black();
         }
-        internal static bool Black()
+        internal static bool AfterMove(Move move) 
         {
-            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
-            {
-                if (pair.Value.color == Color.Black) continue;
-
-                if (PieceAttackingSquare(pair.Key, GameState.WhiteKingPosition)) return true;
-            }
-
-            return false;
-        }
-
-        internal static bool CheckAfterMove(Move move) 
-        {
-
             // Save pieces
             Piece startPiece = new(GameState.Board[move.start].color, GameState.Board[move.start].type);
         
@@ -43,7 +24,7 @@ namespace GameCore
             GameState.Board.Add(move.end, startPiece);
 
             // Check 
-            bool underCheck = startPiece.color == Color.White ? White() : Black();
+            bool underCheck = CurrentPlayer();
 
             // Back to normal
             GameState.Board.Remove(move.end);
@@ -53,7 +34,28 @@ namespace GameCore
 
             return underCheck;
         }
+        private static bool White()
+        {
+            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
+            {
+                if (pair.Value.color == Color.White) continue;
 
+                if (PieceAttackingSquare(pair.Key, GameState.WhiteKingPosition)) return true;
+            }
+
+            return false;
+        }
+        private static bool Black()
+        {
+            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
+            {
+                if (pair.Value.color == Color.Black) continue;
+
+                if (PieceAttackingSquare(pair.Key, GameState.WhiteKingPosition)) return true;
+            }
+
+            return false;
+        }
         private static bool PieceAttackingSquare(Square origin, Square target) 
         {
             switch (GameState.Board[origin].type)
@@ -72,7 +74,7 @@ namespace GameCore
             }
 
             return false;
-        }
+        }    
     }
 }
 
