@@ -4,9 +4,9 @@ namespace GameCore
 {
     public static class Queen
     {
-        internal static bool AttackingSquare(Square start, Square end)
+        internal static bool AttackingSquare(Square start, Square end, Square block, Square empty)
         {
-            return Bishop.AttackingSquare(start, end) || Rook.AttackingSquare(start, end);
+            return Bishop.AttackingSquare(start, end, block, empty) || Rook.AttackingSquare(start, end, block, empty);
         }
         internal static List<Move> LegalMoves(Square start, Color color)
         {

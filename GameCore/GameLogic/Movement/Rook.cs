@@ -4,7 +4,7 @@ namespace GameCore
 {
     internal static class Rook
     {
-        internal static bool AttackingSquare(Square start, Square end)
+        internal static bool AttackingSquare(Square start, Square end, Square block, Square empty)
         {
             if (start.rank != end.rank && start.file != end.file) return false;
 
@@ -18,7 +18,19 @@ namespace GameCore
                         Square s = new Square((byte)(start.file + i), start.rank);
                         if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(s)) return false; 
+                        // Run into a piece
+                        if (GameState.Board.ContainsKey(s)) 
+                        {                           
+                            if (GameState.Board[s].color != GameState.Board[start].color && GameState.Board[s].type == PieceType.King) continue;
+                            if (s.Equals(empty)) continue;
+
+                            return false;
+                        }
+                        // Run into a block
+                        if(s.Equals(block))
+                        {
+                            return false;
+                        }
                     }
                     return false;
                 }
@@ -30,7 +42,19 @@ namespace GameCore
                         Square s = new Square((byte)(start.file - i), start.rank);
                         if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(s)) return false;
+                        // Run into a piece
+                        if (GameState.Board.ContainsKey(s))
+                        {
+                            if (GameState.Board[s].color != GameState.Board[start].color && GameState.Board[s].type == PieceType.King) continue;
+                            if (s.Equals(empty)) continue;
+
+                            return false;
+                        }
+                        // Run into a block
+                        if (s.Equals(block))
+                        {
+                            return false;
+                        }
                     }
                     return false;
                 }
@@ -45,7 +69,19 @@ namespace GameCore
                         Square s = new Square(start.file, (byte)(start.rank + i));
                         if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(s)) return false;
+                        // Run into a piece
+                        if (GameState.Board.ContainsKey(s))
+                        {
+                            if (GameState.Board[s].color != GameState.Board[start].color && GameState.Board[s].type == PieceType.King) continue;
+                            if (s.Equals(empty)) continue;
+
+                            return false;
+                        }
+                        // Run into a block
+                        if (s.Equals(block))
+                        {
+                            return false;
+                        }
                     }
                     return false;
                 }
@@ -57,7 +93,19 @@ namespace GameCore
                         Square s = new Square(start.file, (byte)(start.rank - i));
                         if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(s)) return false;
+                        // Run into a piece
+                        if (GameState.Board.ContainsKey(s))
+                        {
+                            if (GameState.Board[s].color != GameState.Board[start].color && GameState.Board[s].type == PieceType.King) continue;
+                            if (s.Equals(empty)) continue;
+
+                            return false;
+                        }
+                        // Run into a block
+                        if (s.Equals(block))
+                        {
+                            return false;
+                        }
                     }
                     return false;
                 }
