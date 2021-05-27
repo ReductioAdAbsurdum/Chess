@@ -81,21 +81,21 @@ namespace GameCore
 
             return false;
         }
-        private static bool PieceAttackingSquare(Square origin, Square target) 
+        private static bool PieceAttackingSquare(Square start, Square end) 
         {
-            switch (GameState.Board[origin].type)
+            switch (GameState.Board[start].type)
             {
-                case PieceType.Pawn: return Pawn.AttackingSquares(origin).Contains(target);
+                case PieceType.Pawn: return Pawn.AttackingSquare(start, end);
 
-                case PieceType.Rook: return Rook.AttackingSquare(origin, target);
+                case PieceType.Rook: return Rook.AttackingSquare(start, end);
 
-                case PieceType.Bishop: return Bishop.AttackingSquares(origin).Contains(target);
+                case PieceType.Bishop: return Bishop.AttackingSquare(start, end);
 
-                case PieceType.Knight: return Knight.AttackingSquare(origin, target);
+                case PieceType.Knight: return Knight.AttackingSquare(start, end);
 
-                case PieceType.King: return King.AttackingSquares(origin).Contains(target);
+                case PieceType.King: return King.AttackingSquare(start, end);
 
-                case PieceType.Queen: return Queen.AttackingSquares(origin).Contains(target);
+                case PieceType.Queen: return Queen.AttackingSquare(start, end);
             }
 
             return false;

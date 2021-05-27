@@ -4,44 +4,59 @@ namespace GameCore
 {
     internal static class Bishop
     {
-        internal static HashSet<Square> AttackingSquares(Square start)
+        internal static bool AttackingSquare(Square start, Square end)
         {
-            HashSet<Square> output = new HashSet<Square>();
+            if ((start.file + start.rank + end.file + end.rank) % 2 != 0) return false;
 
-            // UpRight
-            for (byte i = 1; start.file + i <= 8 && start.rank + i <= 8; i++)
+            if (start.rank < end.rank)
             {
-                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank + i));
-                output.Add(tempPosition);
+                if (start.file < end.file) // UpRight
+                {
+                    for (byte i = 1; start.rank + i <= end.rank && start.file <= end.file; i++)
+                    {
+                        Square s = new Square((byte)(start.file + i), (byte)(start.rank + i));
+                        if (s.Equals(end)) return true;
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(s)) return false;
+                    }
+                    return false;
+                }
+                else // UpLeft
+                {
+                    for (byte i = 1; start.rank + i <= end.rank && start.file >= end.file; i++)
+                    {
+                        Square s = new Square((byte)(start.file - i), (byte)(start.rank + i));
+                        if (s.Equals(end)) return true;
+
+                        if (GameState.Board.ContainsKey(s)) return false;
+                    }
+                    return false;
+                }
             }
-            // UpLeft
-            for (byte i = 1; start.file - i >= 1 && start.rank + i <= 8; i++)
+            else
             {
-                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank + i));
-                output.Add(tempPosition);
+                if (start.file < end.file) 
+                {
+                    // DownRight
+                    for (byte i = 1; start.rank - i >= end.rank && start.file <= end.file; i++)
+                    {
+                        Square s = new Square((byte)(start.file + i), (byte)(start.rank - i));
+                        if (s.Equals(end)) return true;
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(s)) return false;
+                    }
+                    return false;
+                }
+                // DownLeft
+                for (byte i = 1; start.rank - i >= end.rank && start.file >= end.file; i++)
+                {
+                    Square s = new Square((byte)(start.file - i), (byte)(start.rank - i));
+                    if (s.Equals(end)) return true;
+
+                    if (GameState.Board.ContainsKey(s)) return false;
+                }
+                return false;
             }
-            // DownRight
-            for (byte i = 1; start.file + i <= 8 && start.rank - i >= 1; i++)
-            {
-                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank - i));
-                output.Add(tempPosition);
-
-                if (GameState.Board.ContainsKey(tempPosition)) break;
-            }
-            // DownLeft
-            for (byte i = 1; start.file - i >= 1  && start.rank - i >= 1; i++)
-            {
-                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank - i));
-                output.Add(tempPosition);
-
-                if (GameState.Board.ContainsKey(tempPosition)) break;
-            }
-
-            return output;
         }
 
         internal static HashSet<Move> LegalMoves(Square start, Color color)
@@ -51,34 +66,34 @@ namespace GameCore
             // UpRight
             for (byte i = 1; start.file + i <= 8 && start.rank + i <= 8; i++)
             {
-                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank + i));
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square((byte)(start.file + i), (byte)(start.rank + i));
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
             // UpLeft
             for (byte i = 1; start.file - i  >= 1 && start.rank + i <= 8; i++)
             {
-                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank + i));
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square((byte)(start.file - i), (byte)(start.rank + i));
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
             // DownRight
             for (byte i = 1; start.file + i <= 8 && start.rank - i >=1 ; i++)
             {
-                Square tempPosition = new Square((byte)(start.file + i), (byte)(start.rank - i));
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square((byte)(start.file + i), (byte)(start.rank - i));
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
             // DownLeft
             for (byte i = 1; start.file - i >= 1 && start.rank - i >= 1 ; i++)
             {
-                Square tempPosition = new Square((byte)(start.file - i), (byte)(start.rank - i));
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square((byte)(start.file - i), (byte)(start.rank - i));
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
 
             return output;

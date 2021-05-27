@@ -1,42 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameCore
 {
     internal static class King
     {
-        internal static HashSet<Square> AttackingSquares(Square start)
+        internal static bool AttackingSquare(Square start, Square end)
         {
-            HashSet<Square> output = new HashSet<Square>();
+            if ((start.file + start.rank + end.file + end.rank) % 2 == 0) return false;
 
-            // Up
-            if (start.rank <= 7) output.Add(new Square(start.file, (byte)(start.rank + 1)));
-            // Down
-            if (start.rank >= 2) output.Add(new Square(start.file, (byte)(start.rank - 1)));
+            if (
+                (Math.Abs(start.file - end.file) == 1 || Math.Abs(start.file - end.file) == 0) &&
+                (Math.Abs(start.rank - end.rank) == 1 || Math.Abs(start.rank - end.rank) == 0)
+                ) return true;
 
-            if (start.file <= 7)
-            {
-                //Right
-                output.Add(new Square((byte)(start.file + 1), start.rank));
 
-                // UpRight
-                if (start.rank <= 7) output.Add(new Square((byte)(start.file + 1), (byte)(start.rank + 1)));
-
-                // DownRight
-                if (start.rank >= 2) output.Add(new Square((byte)(start.file + 1), (byte)(start.rank - 1)));
-            }
-            if (start.file >= 2)
-            {
-                //Left
-                output.Add(new Square((byte)(start.file - 1), start.rank));
-
-                // UpLeft
-                if (start.rank <= 7) output.Add(new Square((byte)(start.file - 1), (byte)(start.rank + 1)));
-
-                // DownLeft
-                if (start.rank >= 2) output.Add(new Square((byte)(start.file - 1), (byte)(start.rank - 1)));
-            }
-
-            return output;
+            return false;
         }
 
         internal static HashSet<Move> LegalMoves(Square start, Color color)

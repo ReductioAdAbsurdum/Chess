@@ -1,27 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameCore
 {
     internal static class Pawn
     {
-        internal static HashSet<Square> AttackingSquares(Square start)
+        internal static bool AttackingSquare(Square start, Square end)
         {
-            HashSet<Square> output = new HashSet<Square>();
+            if ((start.file + start.rank + end.file + end.rank) % 2 != 0) return false;
 
             // White pawn
             if (GameState.Board[start].color == Color.White)
             {
-                if (start.file >= 2) output.Add(new Square((byte)(start.file - 1), (byte)(start.rank + 1)));
-                if (start.file <= 7) output.Add(new Square((byte)(start.file + 1), (byte)(start.rank + 1)));
+                if (start.rank + 1 == end.rank && Math.Abs(start.file - end.file) == 1) return true;
+
+                return false;
             }
             // Black pawn
             else
             {
-                if (start.file >= 2) output.Add(new Square((byte)(start.file - 1), (byte)(start.rank - 1)));
-                if (start.file <= 7) output.Add(new Square((byte)(start.file + 1), (byte)(start.rank - 1)));
-            }
+                if (start.rank - 1 == end.rank && Math.Abs(start.file - end.file) == 1) return true;
 
-            return output;
+                return false;
+            }
         }
         internal static HashSet<Move> LegalMoves(Square start, Color color)
         {

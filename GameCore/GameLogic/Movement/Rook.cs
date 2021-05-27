@@ -15,51 +15,53 @@ namespace GameCore
                     // Right
                     for (byte i = 1; start.file + i <= end.file; i++)
                     {
-                        Square tempPosition = new Square((byte)(start.file + i), start.rank);
-                        if (tempPosition.Equals(end)) return true;
+                        Square s = new Square((byte)(start.file + i), start.rank);
+                        if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(s)) return false; 
                     }
+                    return false;
                 }
                 else
                 {
                     // Left
                     for (byte i = 1; start.file - i >= end.file; i++)
                     {
-                        Square tempPosition = new Square((byte)(start.file - i), start.rank);
-                        if (tempPosition.Equals(end)) return true;
+                        Square s = new Square((byte)(start.file - i), start.rank);
+                        if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(s)) return false;
                     }
+                    return false;
                 }
             }
-            if (start.file == end.file)
+            else
             {
                 if (start.rank < end.rank)
                 {
                     // Up
                     for (byte i = 1; start.rank + i <= end.rank; i++)
                     {
-                        Square tempPosition = new Square(start.file, (byte)(start.rank + i));
-                        if (tempPosition.Equals(end)) return true;
+                        Square s = new Square(start.file, (byte)(start.rank + i));
+                        if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(s)) return false;
                     }
+                    return false;
                 }
                 else
                 {
                     // Down
                     for (byte i = 1; start.rank - i >= end.rank; i++)
                     {
-                        Square tempPosition = new Square(start.file, (byte)(start.rank - i));
-                        if (tempPosition.Equals(end)) return true;
+                        Square s = new Square(start.file, (byte)(start.rank - i));
+                        if (s.Equals(end)) return true;
 
-                        if (GameState.Board.ContainsKey(tempPosition)) break;
+                        if (GameState.Board.ContainsKey(s)) return false;
                     }
+                    return false;
                 }
             }
-
-            return false;
         }
         internal static HashSet<Move> LegalMoves(Square start, Color color)
         {
@@ -68,34 +70,34 @@ namespace GameCore
             // Right
             for (byte i = 1; start.file + i <= 8; i++)
             {
-                Square tempPosition = new Square((byte)(start.file + i), start.rank);
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square((byte)(start.file + i), start.rank);
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
             // Left
             for (byte i = 1; start.file - i >= 1; i++)
             {
-                Square tempPosition = new Square((byte)(start.file - i), start.rank);
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square((byte)(start.file - i), start.rank);
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
             // Up
             for (byte i = 1; start.rank + i <= 8; i++)
             {
-                Square tempPosition = new Square(start.file, (byte)(start.rank + i));
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square(start.file, (byte)(start.rank + i));
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
             // Down
             for (byte i = 1; start.rank - i >= 1; i++)
             {
-                Square tempPosition = new Square(start.file, (byte)(start.rank - i));
-                output.AddMove(start, tempPosition, color);
+                Square s = new Square(start.file, (byte)(start.rank - i));
+                output.AddMove(start, s, color);
 
-                if (GameState.Board.ContainsKey(tempPosition)) break;
+                if (GameState.Board.ContainsKey(s)) break;
             }
 
             return output;
