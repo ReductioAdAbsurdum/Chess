@@ -1,0 +1,32 @@
+var output = new List<Move>();
+
+List<Square> squares = new List<Square>(GameState.Board.Keys);
+
+ConcurrentBag<Move> moveBag = new ConcurrentBag<Move>();
+
+Parallel.ForEach(
+    squares, new ParallelOptions() {MaxDegreeOfParallelism = 1 }, s => 
+    {
+        Color c = GameState.Board[s].color;
+        if (c == GameState.CurrentPlayer)
+        {
+            PieceType p = GameState.Board[s].type;
+                        
+            moveBag.AddRange(PieceLegalMoves(s, c, p));
+        }
+    }
+    );
+
+return moveBag.ToArray();
+
+
+internal static class ConcurentBagExtension
+{
+    internal static void AddRange(this ConcurrentBag<Move> bag, List<Move> list)
+    {
+        foreach (Move m in list)
+        {
+            bag.Add(m);
+        }
+    }
+}

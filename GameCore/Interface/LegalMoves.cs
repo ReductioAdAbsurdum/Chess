@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 
 namespace GameCore
 {
@@ -6,19 +7,18 @@ namespace GameCore
     {
         public static List<Move> GetAll()
         {
-            List<Move> output = new List<Move>();
+            var output = new List<Move>(); 
 
-            List<Square> squares = new List<Square>(GameState.Board.Keys);
-
-            foreach (Square s in squares)
+            foreach (Square s in GameState.Board.Keys)
             {
                 Color c = GameState.Board[s].color;
-                if (c != GameState.CurrentPlayer) continue; 
+                if (c != GameState.CurrentPlayer) continue;
                 
-                PieceType p = GameState.Board[s].type;              
+                PieceType p = GameState.Board[s].type;
 
-               output.AddRange(PieceLegalMoves(s, c, p));
+                output.AddRange(PieceLegalMoves(s, c, p));
             }
+
 
             return output;
         }
