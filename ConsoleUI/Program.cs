@@ -12,9 +12,11 @@ namespace ConsoleUI
         // 0.115 ms -> Queen
         // 0.105 ms -> King
         // 0.090 ms -> Pawn
+
+        // 0.1 - 0.09 Current
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/8/8/8/8/8/8/RNBQKBNR w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             Stopwatch s = new Stopwatch();
             

@@ -4,28 +4,26 @@ namespace GameCore
 {
     public static class LegalMoves
     {
-        public static HashSet<Move> GetAll()
+        public static List<Move> GetAll()
         {
-            HashSet<Move> output = new HashSet<Move>();
+            List<Move> output = new List<Move>();
 
             List<Square> squares = new List<Square>(GameState.Board.Keys);
 
-            for (int i = 0; i < squares.Count; i++)
+            foreach (Square s in squares)
             {
-                Color c = GameState.Board[squares[i]].color;
-                if (c != GameState.CurrentPlayer) continue;
-
-                Square s = squares[i];      
+                Color c = GameState.Board[s].color;
+                if (c != GameState.CurrentPlayer) continue; 
                 
-                PieceType p = GameState.Board[squares[i]].type;
+                PieceType p = GameState.Board[s].type;              
 
-                output.UnionWith(PieceLegalMoves(s, c, p));
+               output.AddRange(PieceLegalMoves(s, c, p));
             }
 
             return output;
         }
 
-        private static HashSet<Move> PieceLegalMoves(Square start, Color color , PieceType piece)
+        private static List<Move> PieceLegalMoves(Square start, Color color , PieceType piece)
         {
             switch (piece)
             {
@@ -37,7 +35,7 @@ namespace GameCore
                 case PieceType.Queen: return Queen.LegalMoves(start, color);
             }
 
-            return new HashSet<Move>();
+            return new List<Move>();
         }
     }
 }

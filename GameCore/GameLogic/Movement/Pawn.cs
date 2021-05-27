@@ -24,15 +24,15 @@ namespace GameCore
                 return false;
             }
         }
-        internal static HashSet<Move> LegalMoves(Square start, Color color)
+        internal static List<Move> LegalMoves(Square start, Color color)
         {
             if (color == Color.White) return WhiteLegalMoves(start, color);
             return BlackLegalMoves(start, color);
         }
 
-        private static HashSet<Move> WhiteLegalMoves(Square start, Color color)
+        private static List<Move> WhiteLegalMoves(Square start, Color color)
         {
-            HashSet<Move> output = new HashSet<Move>();
+            List<Move> output = new List<Move>();
 
             // Attacking
             if (start.file >= 2)
@@ -70,9 +70,9 @@ namespace GameCore
 
             return output;
         }
-        private static HashSet<Move> BlackLegalMoves(Square start, Color color)
+        private static List<Move> BlackLegalMoves(Square start, Color color)
         {
-            HashSet<Move> output = new HashSet<Move>();
+            List<Move> output = new List<Move>();
 
             // Attacking
             if (start.file >= 2)

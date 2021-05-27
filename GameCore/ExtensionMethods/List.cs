@@ -3,9 +3,9 @@
 
 namespace GameCore
 {
-    public static class HashSet
+    public static class List
     {
-        internal static void AddMove(this HashSet<Move> h, Square start, Square end, Color color) 
+        internal static void AddMove(this List<Move> h, Square start, Square end, Color color) 
         {
             if (GameState.Board.ContainsKey(end) == false)
             {
@@ -18,7 +18,7 @@ namespace GameCore
                 if (!UnderCheck.AfterMove(m)) h.Add(m);
             }
         }
-        internal static void AddPawnMove(this HashSet<Move> h, Square start, Square end, Color color)
+        internal static void AddPawnMove(this List<Move> h, Square start, Square end, Color color)
         {
             if (GameState.Board.ContainsKey(end) == false)
             {                              
@@ -59,7 +59,7 @@ namespace GameCore
                 if (!UnderCheck.AfterMove(m)) h.Add(m);
             }          
         }
-        internal static void AddPawnAttackMove(this HashSet<Move> h, Square start, Square end, Color color)       
+        internal static void AddPawnAttackMove(this List<Move> h, Square start, Square end, Color color)
         {
             if (GameState.Board.ContainsKey(end)) 
             {

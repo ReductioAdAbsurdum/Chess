@@ -8,9 +8,9 @@ namespace GameCore
         {
             return Bishop.AttackingSquare(start, end) || Rook.AttackingSquare(start, end);
         }
-        internal static HashSet<Move> LegalMoves(Square start, Color color)
+        internal static List<Move> LegalMoves(Square start, Color color)
         {
-            HashSet<Move> output = new HashSet<Move>();
+            List<Move> output = new List<Move>();
             
             //Rook Moves
 

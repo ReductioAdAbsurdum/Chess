@@ -63,9 +63,9 @@ namespace GameCore
                 }
             }
         }
-        internal static HashSet<Move> LegalMoves(Square start, Color color)
+        internal static List<Move> LegalMoves(Square start, Color color)
         {
-            HashSet<Move> output = new HashSet<Move>();
+            List<Move> output = new List<Move>();
 
             // Right
             for (byte i = 1; start.file + i <= 8; i++)
