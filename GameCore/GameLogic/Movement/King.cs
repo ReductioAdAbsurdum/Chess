@@ -7,8 +7,6 @@ namespace GameCore
     {
         internal static bool AttackingSquare(Square start, Square end)
         {
-            if ((start.file + start.rank + end.file + end.rank) % 2 == 0) return false;
-
             if (
                 (Math.Abs(start.file - end.file) == 1 || Math.Abs(start.file - end.file) == 0) &&
                 (Math.Abs(start.rank - end.rank) == 1 || Math.Abs(start.rank - end.rank) == 0)
