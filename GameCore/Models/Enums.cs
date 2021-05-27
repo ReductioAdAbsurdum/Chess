@@ -20,4 +20,20 @@ namespace GameCore
         King,
         Queen
     }
+    public enum MoveInfo : byte
+    {
+        None,
+
+        Promotion_Bishop,
+        Promotion_Rook,
+        Promotion_Knight,
+        Promotion_Queen,
+
+        EnPassant,
+        
+        White_OO,
+        White_OOO,
+        Black_OO,
+        Black_OOO,
+    }
 }

@@ -44,7 +44,7 @@ namespace GameCore
                 output.AddPawnAttackMove(start, new Square((byte)(start.file + 1), (byte)(start.rank + 1)), color);
             }
 
-            // Move           
+            // Push           
             Square tempPositionOneUp = new Square(start.file, (byte)(start.rank + 1));
             if (!GameState.Board.ContainsKey(tempPositionOneUp))
             {
@@ -61,11 +61,11 @@ namespace GameCore
             // En Passant
             if (start.file + 1 == GameState.EnPassantFile && start.rank == 5)
             {
-                output.AddPawnMove(start, new Square((byte)(start.rank + 1), (byte)(start.file + 1)), color);
+                output.AddMoveInfo(start, new Square((byte)(start.rank + 1), (byte)(start.file + 1)), color, MoveInfo.EnPassant);
             }
             if (start.file - 1 == GameState.EnPassantFile && start.rank == 4)
             {
-                output.AddPawnMove(start, new Square((byte)(start.rank + 1), (byte)(start.file - 1)), color);
+                output.AddMoveInfo(start, new Square((byte)(start.rank + 1), (byte)(start.file - 1)), color, MoveInfo.EnPassant);
             }
 
             return output;
@@ -84,7 +84,7 @@ namespace GameCore
                 output.AddPawnAttackMove(start, new Square((byte)(start.file + 1), (byte)(start.rank - 1)), color);
             }
 
-            // Move           
+            // Push           
             Square tempPositionOneDown = new Square(start.file, (byte)(start.rank - 1));
 
             if (!GameState.Board.ContainsKey(tempPositionOneDown))
@@ -102,11 +102,11 @@ namespace GameCore
             // En Passant
             if (start.file + 1 == GameState.EnPassantFile && start.rank == 4)
             {
-                output.AddPawnMove(start, new Square((byte)(start.rank - 1), (byte)(start.file + 1)), color);
+                output.AddMoveInfo(start, new Square((byte)(start.rank - 1), (byte)(start.file + 1)), color, MoveInfo.EnPassant);
             }
             if (start.file - 1 == GameState.EnPassantFile && start.rank == 4)
             {
-                output.AddPawnMove(start, new Square((byte)(start.rank - 1), (byte)(start.file - 1)), color);
+                output.AddMoveInfo(start, new Square((byte)(start.rank - 1), (byte)(start.file - 1)), color, MoveInfo.EnPassant);
             }
 
             return output;

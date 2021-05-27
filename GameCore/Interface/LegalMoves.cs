@@ -19,7 +19,6 @@ namespace GameCore
                 output.AddRange(PieceLegalMoves(s, c, p));
             }
 
-
             return output;
         }
 

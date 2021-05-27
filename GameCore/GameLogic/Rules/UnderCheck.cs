@@ -38,7 +38,7 @@ namespace GameCore
             }
         }
 
-        // When we move King
+        // When we move king
         internal static bool WhiteAttackingSquare(Square square) 
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
@@ -81,7 +81,7 @@ namespace GameCore
             return false;
         }
 
-        // When we move other piece
+        // When we move other pieces
         internal static bool WhiteAttackingSquareWithoutPiece(Square target, Square pieceSquare, Square block, Square empty)
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
@@ -124,9 +124,7 @@ namespace GameCore
             }
 
             return false;
-        }
-        
-        
+        }            
     }
 }
 

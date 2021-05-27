@@ -6,27 +6,27 @@ namespace GameCore
     {
         public readonly Square start;
         public readonly Square end;
-        public readonly PieceType promotionPiece;
+        public readonly MoveInfo info;
 
         internal Move(Square origin, Square end)
         {
             this.start = origin;
             this.end = end;
-            promotionPiece = PieceType.Pawn;
+            this.info = MoveInfo.None;
         }
-        internal Move(Square origin, Square end, PieceType promotionPiece)
+        internal Move(Square origin, Square end, MoveInfo info)
         {
             this.start = origin;
             this.end = end;
-            this.promotionPiece = promotionPiece;
+            this.info = info;
         }
         public bool Equals(Move other)
         {
-            return start.Equals(other.start) && end.Equals(other.end) && promotionPiece.Equals(other.promotionPiece);
+            return start.Equals(other.start) && end.Equals(other.end) && info.Equals(other.info);
         }
         public override int GetHashCode()
         {
-            return start.GetHashCode() * 1000 + end.GetHashCode() * 10 + (int)promotionPiece;
+            return start.GetHashCode() * 1000 + end.GetHashCode() * 10 + (int)info;
         }
     }
 }
