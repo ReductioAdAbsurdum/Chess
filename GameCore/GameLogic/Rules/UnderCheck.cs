@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace GameCore
 {
     internal static class UnderCheck
-    {     
+    {                   
         internal static bool AfterMove(Move move) 
         {
             // White player
@@ -19,7 +19,7 @@ namespace GameCore
                 // Other's move
                 if (!OnKingStar(move.end) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckWhite) return true; // Move can't protect king
 
-                if (!OnKingStar(move.start) && !GameState.UnderCheckWhite) return false; // King can't be hurt
+                if (!OnKingStar(move.start) && !GameState.UnderCheckWhite) return false; // King can't be hurt by the move
 
 
                 return AttackingSquareWithoutPieceBlack(GameState.KingPositionWhite, move.end, move.end, move.start); 
@@ -38,7 +38,7 @@ namespace GameCore
                 // Other's move               
                 if (!OnKingStar(move.end) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckBlack) return true; // Move can't protect king 
 
-                if (!OnKingStar(move.start) && !GameState.UnderCheckBlack) return false; // King can't be hurt
+                if (!OnKingStar(move.start) && !GameState.UnderCheckBlack) return false; // King can't be hurt by the move
 
 
                 return AttackingSquareWithoutPieceWhite(GameState.KingPositionBlack, move.end, move.end, move.start);

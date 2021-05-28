@@ -3,7 +3,7 @@
 namespace GameCore
 {
     internal static class GameState
-    {
+    {       
         internal static Dictionary<Square, Piece> Board = new Dictionary<Square, Piece>();
 
         internal static bool CastleWhite_OO = true;
@@ -19,10 +19,11 @@ namespace GameCore
         internal static byte HalfmoveNumber = 0;
 
         internal static Square KingPositionWhite = new Square(5, 1);
-        internal static Square KingPositionBlack = new Square(8, 1);
+        internal static Square KingPositionBlack = new Square(5, 8);
 
         internal static bool UnderCheckWhite = false;
         internal static bool UnderCheckBlack = false;
-
     }
+
+    // TODO - Modify for multithreading
 }

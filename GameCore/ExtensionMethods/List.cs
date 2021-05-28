@@ -17,7 +17,7 @@ namespace GameCore
             }
             else if (GameState.Board[end].color != color)
             {
-                Move m = new Move(start, end, MoveInfo.Capture);
+                Move m = new Move(start, end);
                 if (!UnderCheck.AfterMove(m)) list.Add(m);
             }
         }
@@ -120,7 +120,7 @@ namespace GameCore
                     }
 
                     // Regular capture
-                    Move m = new Move(start, end, MoveInfo.Capture);
+                    Move m = new Move(start, end);
                     if (!UnderCheck.AfterMove(m)) list.Add(m);
                 }
             }

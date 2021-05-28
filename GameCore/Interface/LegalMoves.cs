@@ -12,7 +12,7 @@ namespace GameCore
             {
                 GameState.UnderCheckWhite = UnderCheck.AttackingSquareBlack(GameState.KingPositionWhite);
             }
-            else 
+            else
             {
                 GameState.UnderCheckBlack = UnderCheck.AttackingSquareWhite(GameState.KingPositionWhite);
             }
@@ -31,7 +31,140 @@ namespace GameCore
 
             return output;
         }
+        public static void MakeMove(Move move)
+        {
+            // Break if there is no legal move
+            if (!GetAll().Contains(move)) return;
 
+            switch (move.info)
+            {
+                case MoveInfo.None: MovePiece(move);
+                    break;
+                case MoveInfo.Promotion_Bishop: PromotePawn(move, PieceType.Bishop);
+                    break;
+                case MoveInfo.Promotion_Rook: PromotePawn(move, PieceType.Rook);
+                    break;
+                case MoveInfo.Promotion_Knight: PromotePawn(move, PieceType.Knight);
+                    break;
+                case MoveInfo.Promotion_Queen: PromotePawn(move, PieceType.Queen);
+                    break;
+                case MoveInfo.EnPassant: EnPassant(move);
+                    break;
+                case MoveInfo.White_OO: CastleWhiteOO(move);
+                    break;
+                case MoveInfo.White_OOO: CastleWhiteOOO(move);
+                    break;
+                case MoveInfo.Black_OO: CastleBlackOO(move);
+                    break;
+                case MoveInfo.Black_OOO: CastleBlackOOO(move);
+                    break;
+            }
+        }
+        private static void MovePiece(Move move) 
+        {
+            // Accaunts for King and or Rook move for White
+            if (move.start.Equals(GameState.KingPositionWhite) || move.start.Equals(new Square(1, 1)) || move.start.Equals(new Square(8, 1)))
+            {
+                GameState.CastleWhite_OO = false;
+                GameState.CastleWhite_OOO = false;
+            }
+            if (move.start.Equals(GameState.KingPositionWhite))
+            {
+                GameState.KingPositionWhite = move.end;
+            }
+
+            // Accaunts for King and or Rook move for Black
+            if (move.start.Equals(GameState.KingPositionBlack) || move.start.Equals(new Square(1, 8)) || move.start.Equals(new Square(8, 8)))
+            {
+                GameState.CastleBlack_OO = false;
+                GameState.CastleBlack_OOO = false;
+            }
+            if (move.start.Equals(GameState.KingPositionBlack))
+            {
+                GameState.KingPositionBlack= move.end;
+            }
+
+            GameState.Board.Remove(move.end);
+
+            GameState.Board.Add(move.end, new Piece(GameState.Board[move.start].color, GameState.Board[move.start].type));
+
+            GameState.Board.Remove(move.start);
+        }
+        private static void PromotePawn(Move move, PieceType promotion)
+        {
+            GameState.Board.Remove(move.end);
+
+            GameState.Board.Add(move.end, new Piece(GameState.Board[move.start].color, promotion));
+
+            GameState.Board.Remove(move.start);
+        }
+        private static void EnPassant(Move move)
+        {
+            GameState.Board.Add(move.end, new Piece(GameState.Board[move.start].color, PieceType.Pawn));
+
+            GameState.Board.Remove(move.start);
+            GameState.Board.Remove(new Square(move.end.file, move.start.rank));
+        }
+        private static void CastleWhiteOO(Move move) 
+        {
+            // Game state info
+            GameState.KingPositionWhite = move.end;
+            GameState.CastleWhite_OO = false;
+            GameState.CastleWhite_OOO = false;
+
+            // Move king
+            GameState.Board.Add(move.end, new Piece(Color.White, PieceType.King));
+            GameState.Board.Remove(move.start);
+
+            // Move Rook
+            GameState.Board.Add(new Square(6, 1), new Piece(Color.White, PieceType.Rook));
+            GameState.Board.Remove(new Square(8,1));
+        }
+        private static void CastleWhiteOOO(Move move)
+        {
+            // Game state info
+            GameState.KingPositionWhite = move.end;
+            GameState.CastleWhite_OO = false;
+            GameState.CastleWhite_OOO = false;
+
+            // Move king
+            GameState.Board.Add(move.end, new Piece(Color.White, PieceType.King));
+            GameState.Board.Remove(move.start);
+
+            // Move Rook
+            GameState.Board.Add(new Square(4, 1), new Piece(Color.White, PieceType.Rook));
+            GameState.Board.Remove(new Square(1, 1));
+        }
+        private static void CastleBlackOO(Move move)
+        {
+            // Game state info
+            GameState.KingPositionBlack = move.end;
+            GameState.CastleBlack_OO = false;
+            GameState.CastleBlack_OOO = false;
+
+            // Move king
+            GameState.Board.Add(move.end, new Piece(Color.Black, PieceType.King));
+            GameState.Board.Remove(move.start);
+
+            // Move Rook
+            GameState.Board.Add(new Square(6, 8), new Piece(Color.Black, PieceType.Rook));
+            GameState.Board.Remove(new Square(8, 8));
+        }
+        private static void CastleBlackOOO(Move move)
+        {
+            // Game state info
+            GameState.KingPositionBlack = move.end;
+            GameState.CastleBlack_OO = false;
+            GameState.CastleBlack_OOO = false;
+
+            // Move king
+            GameState.Board.Add(move.end, new Piece(Color.Black, PieceType.King));
+            GameState.Board.Remove(move.start);
+
+            // Move Rook
+            GameState.Board.Add(new Square(4, 8), new Piece(Color.Black, PieceType.Rook));
+            GameState.Board.Remove(new Square(1, 8));
+        }
         private static List<Move> PieceLegalMoves(Square start, Color color , PieceType piece)
         {
             switch (piece)
