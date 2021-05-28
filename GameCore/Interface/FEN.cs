@@ -53,7 +53,14 @@ namespace GameCore
             }
 
             // Field #4 - En passant file
-            if (fields[3] != "-") GameState.EnPassantFile = byte.Parse(fields[3][1].ToString());
+            if (fields[3] != "-")
+            {
+                GameState.EnPassantFile = byte.Parse(fields[3][1].ToString());
+            }
+            else 
+            {
+                GameState.EnPassantFile = 20;
+            }
 
             // Field #5 - Halfmove number
             GameState.HalfmoveNumber = byte.Parse(fields[4]);
@@ -87,18 +94,23 @@ namespace GameCore
 
             // Field #4 - En passant file
 
-            output += FileToLetter(GameState.EnPassantFile);
-            if (GameState.CurrentPlayer == Color.White && GameState.EnPassantFile != 0) output += "6";
-            if (GameState.CurrentPlayer == Color.Black && GameState.EnPassantFile != 0) output += "6";
+            if (GameState.EnPassantFile == 20)
+            {
+                output += "-";
+            }
+            else
+            {
+                output += FileToLetter(GameState.EnPassantFile);
+                if (GameState.CurrentPlayer == Color.White && GameState.EnPassantFile != 0) output += "6";
+                if (GameState.CurrentPlayer == Color.Black && GameState.EnPassantFile != 0) output += "6";
+            }
 
             output += " ";
 
             // Field #5 - Halfmove number
             output += GameState.HalfmoveNumber.ToString();
 
-
             output += " ";
-
 
             // Field #6 - Move number
             output += GameState.MoveNumber.ToString();

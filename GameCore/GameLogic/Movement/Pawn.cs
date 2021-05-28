@@ -93,7 +93,7 @@ namespace GameCore
 
                 Square tempPositionTwoDown = new Square(start.file, (byte)(start.rank - 2));
 
-                if (!GameState.Board.ContainsKey(tempPositionTwoDown) && start.rank == 6)
+                if (!GameState.Board.ContainsKey(tempPositionTwoDown) && start.rank == 7)
                 {
                     output.AddPawnMove(start, tempPositionTwoDown, color);
                 }

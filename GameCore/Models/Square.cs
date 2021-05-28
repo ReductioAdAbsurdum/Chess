@@ -7,7 +7,7 @@ namespace GameCore
         public readonly byte file;
         public readonly byte rank;
 
-        internal Square(byte file, byte rank)
+        public Square(byte file, byte rank)
         {
             this.file = file;
             this.rank = rank;

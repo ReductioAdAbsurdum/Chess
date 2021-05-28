@@ -8,15 +8,15 @@ namespace GameCore
         public readonly Square end;
         public readonly MoveInfo info;
 
-        internal Move(Square origin, Square end)
+        public Move(Square start, Square end)
         {
-            this.start = origin;
+            this.start = start;
             this.end = end;
             this.info = MoveInfo.None;
         }
-        internal Move(Square origin, Square end, MoveInfo info)
+        public Move(Square start, Square end, MoveInfo info)
         {
-            this.start = origin;
+            this.start = start;
             this.end = end;
             this.info = info;
         }

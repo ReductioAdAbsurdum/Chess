@@ -14,7 +14,7 @@ namespace GameCore
             }
             else
             {
-                GameState.UnderCheckBlack = UnderCheck.AttackingSquareWhite(GameState.KingPositionWhite);
+                GameState.UnderCheckBlack = UnderCheck.AttackingSquareWhite(GameState.KingPositionBlack);
             }
 
             var output = new List<Move>(); 
@@ -59,6 +59,19 @@ namespace GameCore
                 case MoveInfo.Black_OOO: CastleBlackOOO(move);
                     break;
             }
+
+            if (GameState.CurrentPlayer == Color.White)
+            {
+                GameState.CurrentPlayer = Color.Black;
+            }
+            else 
+            {
+                GameState.CurrentPlayer = Color.White;
+            }
+            GameState.HalfmoveNumber++;
+            GameState.MoveNumber++;
+            GameState.EnPassantFile = 20;
+           
         }
         private static void MovePiece(Move move) 
         {

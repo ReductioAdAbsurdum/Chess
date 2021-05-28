@@ -10,9 +10,13 @@ namespace ConsoleUI
         {
             Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
+            MesureLegalMovesGetAll();
+        }
+        static void MesureLegalMovesGetAll() 
+        {
             Stopwatch s = new Stopwatch();
-            
-            var y = LegalMoves.GetAll(); 
+
+            var y = LegalMoves.GetAll();
 
             s.Start();
 
@@ -23,7 +27,7 @@ namespace ConsoleUI
 
             s.Stop();
             Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
-            
+
             s.Reset();
             s.Start();
 
@@ -31,10 +35,9 @@ namespace ConsoleUI
             {
                 var X = LegalMoves.GetAll();
             }
-            
+
             s.Stop();
             Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
-
         }
     }
 }
