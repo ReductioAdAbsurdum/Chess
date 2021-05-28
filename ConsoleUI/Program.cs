@@ -10,11 +10,11 @@ namespace ConsoleUI
         // 59 µs Bishop L
         // 58.5 µs King branchless
         // 53.9 µs King castle fix
-        // Added global variable under check that updates at start of the move 54.2 µs
+        // 37.8 µs With KingStar Method
 
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/PPPPPPPP/PPPPPPPP/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             Stopwatch s = new Stopwatch();
             

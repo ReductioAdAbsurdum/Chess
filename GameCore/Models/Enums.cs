@@ -24,6 +24,8 @@ namespace GameCore
     {
         None,
 
+        Capture,
+
         Promotion_Bishop,
         Promotion_Rook,
         Promotion_Knight,

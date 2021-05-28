@@ -11,7 +11,7 @@ namespace GameCore
         internal static bool CastleBlack_OO = true;
         internal static bool CastleBlack_OOO= true;
 
-        internal static byte EnPassantFile = 0;
+        internal static byte EnPassantFile = 20;
 
         internal static Color CurrentPlayer = Color.White;
 

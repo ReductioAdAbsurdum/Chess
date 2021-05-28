@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameCore
 {
     internal static class UnderCheck
-    {
-        internal static bool CurrentPlayer() 
-        {
-            if (GameState.CurrentPlayer == Color.White) return AttackingSquareBlack(GameState.KingPositionWhite);
-            
-            return AttackingSquareWhite(GameState.KingPositionBlack);
-        }
+    {     
         internal static bool AfterMove(Move move) 
         {
             // White player
@@ -21,8 +16,15 @@ namespace GameCore
                     return AttackingSquareBlack(move.end);
                 }
 
-                // Other's move              
-                return AttackingSquareWithoutPieceBlack(GameState.KingPositionWhite, move.end, move.end, move.start);
+                // Other's move
+                if (!OnKingStar(move.end) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckWhite) return true; // Move can't protect king
+
+                if (!OnKingStar(move.start) && !GameState.UnderCheckWhite) return false; // King can't be hurt
+
+
+                return AttackingSquareWithoutPieceBlack(GameState.KingPositionWhite, move.end, move.end, move.start); 
+              
+                
             }
             // Black player
             else
@@ -33,7 +35,12 @@ namespace GameCore
                     return AttackingSquareWhite(move.end);
                 }
 
-                // Other's move
+                // Other's move               
+                if (!OnKingStar(move.end) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckBlack) return true; // Move can't protect king 
+
+                if (!OnKingStar(move.start) && !GameState.UnderCheckBlack) return false; // King can't be hurt
+
+
                 return AttackingSquareWithoutPieceWhite(GameState.KingPositionBlack, move.end, move.end, move.start);
             }
         }
@@ -125,7 +132,27 @@ namespace GameCore
             }
 
             return false;
-        }            
+        }
+
+        private static bool OnKingStar(Square s) 
+        {
+            if (GameState.CurrentPlayer == Color.White)
+            {
+                bool bishop = Math.Abs(s.file - GameState.KingPositionWhite.file) == Math.Abs(s.rank - GameState.KingPositionWhite.rank);
+
+                bool rook = s.rank == GameState.KingPositionWhite.rank || s.file == GameState.KingPositionWhite.file;
+
+                return bishop || rook;
+            }
+            else 
+            {
+                bool bishop = Math.Abs(s.file - GameState.KingPositionBlack.file) == Math.Abs(s.rank - GameState.KingPositionBlack.rank);
+
+                bool rook = s.rank == GameState.KingPositionBlack.rank || s.file == GameState.KingPositionBlack.file;
+
+                return bishop || rook;
+            }
+        }
     }
 }
 
