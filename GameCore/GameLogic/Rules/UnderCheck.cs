@@ -17,14 +17,12 @@ namespace GameCore
                 }
 
                 // Other's move
-                if (!OnKingStar(move.end) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckWhite) return true; // Move can't protect king
+                if (!OnKingStar(move.end, GameState.KingPositionWhite) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckWhite) return true; // Move can't protect king
 
-                if (!OnKingStar(move.start) && !GameState.UnderCheckWhite) return false; // King can't be hurt by the move
+                if (!OnKingStar(move.start, GameState.KingPositionWhite) && !GameState.UnderCheckWhite) return false; // King can't be hurt by the move
 
 
-                return AttackingSquareWithoutPieceBlack(GameState.KingPositionWhite, move.end, move.end, move.start); 
-              
-                
+                return AttackingSquareWithoutPieceBlack(GameState.KingPositionWhite, move.end, move.end, move.start);                             
             }
             // Black player
             else
@@ -36,9 +34,9 @@ namespace GameCore
                 }
 
                 // Other's move               
-                if (!OnKingStar(move.end) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckBlack) return true; // Move can't protect king 
+                if (!OnKingStar(move.end, GameState.KingPositionBlack) && !GameState.Board.ContainsKey(move.end) && GameState.UnderCheckBlack) return true; // Move can't protect king 
 
-                if (!OnKingStar(move.start) && !GameState.UnderCheckBlack) return false; // King can't be hurt by the move
+                if (!OnKingStar(move.start, GameState.KingPositionBlack) && !GameState.UnderCheckBlack) return false; // King can't be hurt by the move
 
 
                 return AttackingSquareWithoutPieceWhite(GameState.KingPositionBlack, move.end, move.end, move.start);
@@ -112,8 +110,7 @@ namespace GameCore
             }
 
             return false;
-        }        
-        
+        }              
         private static bool PieceAttackingSquare(Square start, Square end, Square block, Square empty) 
         {
             switch (GameState.Board[start].type)
@@ -134,24 +131,10 @@ namespace GameCore
             return false;
         }
 
-        private static bool OnKingStar(Square s) 
+        private static bool OnKingStar(Square test, Square king) 
         {
-            if (GameState.CurrentPlayer == Color.White)
-            {
-                bool bishop = Math.Abs(s.file - GameState.KingPositionWhite.file) == Math.Abs(s.rank - GameState.KingPositionWhite.rank);
-
-                bool rook = s.rank == GameState.KingPositionWhite.rank || s.file == GameState.KingPositionWhite.file;
-
-                return bishop || rook;
-            }
-            else 
-            {
-                bool bishop = Math.Abs(s.file - GameState.KingPositionBlack.file) == Math.Abs(s.rank - GameState.KingPositionBlack.rank);
-
-                bool rook = s.rank == GameState.KingPositionBlack.rank || s.file == GameState.KingPositionBlack.file;
-
-                return bishop || rook;
-            }
+            return test.rank == king.rank || test.file == king.file || (Math.Abs(test.file - king.file) == Math.Abs(test.rank - king.rank));  
+            //                           Rook                                                          Bishop
         }
     }
 }

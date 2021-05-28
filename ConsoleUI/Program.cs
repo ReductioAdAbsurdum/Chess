@@ -3,12 +3,15 @@ using System;
 using System.Diagnostics;
 
 namespace ConsoleUI
-{
+{          
+    // Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     class Program
     {
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/QQQQQQQQ/8/8/8/4K3 w KQkq - 0 1");
+
+            var y = LegalMoves.GetAll();
 
             MesureLegalMovesGetAll();
         }

@@ -9,7 +9,7 @@ namespace GameCore
         /// Adds move if board conditions are met.
         /// </summary>
         internal static void AddMove(this List<Move> list, Square start, Square end, Color color) 
-        {
+        {          
             if (GameState.Board.ContainsKey(end) == false)
             {
                 Move m = new Move(start, end);
