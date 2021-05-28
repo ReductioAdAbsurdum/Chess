@@ -6,9 +6,9 @@ namespace GameCore
     {
         internal static bool CurrentPlayer() 
         {
-            if (GameState.CurrentPlayer == Color.White) return BlackAttackingSquare(GameState.WhiteKingPosition);
+            if (GameState.CurrentPlayer == Color.White) return AttackingSquareBlack(GameState.KingPositionWhite);
             
-            return WhiteAttackingSquare(GameState.BlackKingPosition);
+            return AttackingSquareWhite(GameState.KingPositionBlack);
         }
         internal static bool AfterMove(Move move) 
         {
@@ -16,30 +16,30 @@ namespace GameCore
             if (GameState.CurrentPlayer == Color.White) 
             {
                 // King's move
-                if (move.start.Equals(GameState.WhiteKingPosition)) 
+                if (move.start.Equals(GameState.KingPositionWhite)) 
                 {
-                    return BlackAttackingSquare(move.end);
+                    return AttackingSquareBlack(move.end);
                 }
 
-                // Other's move
-                return BlackAttackingSquareWithoutPiece(GameState.WhiteKingPosition, move.end, move.end, move.start);
+                // Other's move              
+                return AttackingSquareWithoutPieceBlack(GameState.KingPositionWhite, move.end, move.end, move.start);
             }
             // Black player
             else
             {
                 // King's move
-                if (move.start.Equals(GameState.BlackKingPosition))
+                if (move.start.Equals(GameState.KingPositionBlack))
                 {
-                    return WhiteAttackingSquare(move.end);
+                    return AttackingSquareWhite(move.end);
                 }
 
                 // Other's move
-                return WhiteAttackingSquareWithoutPiece(GameState.BlackKingPosition, move.end, move.end, move.start);
+                return AttackingSquareWithoutPieceWhite(GameState.KingPositionBlack, move.end, move.end, move.start);
             }
         }
 
         // When we move king
-        internal static bool WhiteAttackingSquare(Square square) 
+        internal static bool AttackingSquareWhite(Square square) 
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
             {
@@ -50,7 +50,7 @@ namespace GameCore
 
             return false;
         }
-        internal static bool BlackAttackingSquare(Square square) 
+        internal static bool AttackingSquareBlack(Square square) 
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
             {
@@ -82,7 +82,7 @@ namespace GameCore
         }
 
         // When we move other pieces
-        internal static bool WhiteAttackingSquareWithoutPiece(Square target, Square pieceSquare, Square block, Square empty)
+        internal static bool AttackingSquareWithoutPieceWhite(Square target, Square pieceSquare, Square block, Square empty)
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
             {
@@ -94,7 +94,7 @@ namespace GameCore
 
             return false;
         }
-        internal static bool BlackAttackingSquareWithoutPiece(Square target, Square pieceSquare, Square block, Square empty)
+        internal static bool AttackingSquareWithoutPieceBlack(Square target, Square pieceSquare, Square block, Square empty)
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
             {
@@ -106,6 +106,7 @@ namespace GameCore
 
             return false;
         }        
+        
         private static bool PieceAttackingSquare(Square start, Square end, Square block, Square empty) 
         {
             switch (GameState.Board[start].type)

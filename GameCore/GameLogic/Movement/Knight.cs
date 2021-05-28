@@ -7,10 +7,13 @@ namespace GameCore
     {
         internal static bool AttackingSquare(Square start, Square end)
         {
+            // Oposite color check
             if ((start.file + start.rank + end.file + end.rank) % 2 == 0) return false;
 
+            // Two-up/down or one-left/right
             if (Math.Abs(start.rank - end.rank) == 2 && Math.Abs(start.file - end.file) == 1) return true;
 
+            // Two-left/right or one-up/down
             if (Math.Abs(start.rank - end.rank) == 1 && Math.Abs(start.file - end.file) == 2) return true;
 
             return false;

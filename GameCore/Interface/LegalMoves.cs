@@ -7,6 +7,16 @@ namespace GameCore
     {
         public static List<Move> GetAll()
         {
+            // Update king under check at the start of the move
+            if (GameState.CurrentPlayer == Color.White)
+            {
+                GameState.UnderCheckWhite = UnderCheck.AttackingSquareBlack(GameState.KingPositionWhite);
+            }
+            else 
+            {
+                GameState.UnderCheckBlack = UnderCheck.AttackingSquareWhite(GameState.KingPositionWhite);
+            }
+
             var output = new List<Move>(); 
 
             foreach (Square s in GameState.Board.Keys)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameCore
 {
@@ -6,7 +7,11 @@ namespace GameCore
     {
         internal static bool AttackingSquare(Square start, Square end, Square block, Square empty)
         {
+            // Oposite color square check
             if ((start.file + start.rank + end.file + end.rank) % 2 != 0) return false;
+
+            // Not on L
+            if(Math.Abs(start.file-end.file) != Math.Abs(start.rank - end.rank)) return false;
 
             if (start.rank < end.rank)
             {

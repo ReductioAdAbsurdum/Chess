@@ -18,7 +18,11 @@ namespace GameCore
         internal static short MoveNumber = 1;
         internal static byte HalfmoveNumber = 0;
 
-        internal static Square WhiteKingPosition = new Square(5, 1);
-        internal static Square BlackKingPosition = new Square(8, 1);    
+        internal static Square KingPositionWhite = new Square(5, 1);
+        internal static Square KingPositionBlack = new Square(8, 1);
+
+        internal static bool UnderCheckWhite = false;
+        internal static bool UnderCheckBlack = false;
+
     }
 }

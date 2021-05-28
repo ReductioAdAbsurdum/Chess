@@ -7,13 +7,10 @@ namespace GameCore
     {
         internal static bool AttackingSquare(Square start, Square end)
         {
-            if (
+            return (
                 (Math.Abs(start.file - end.file) == 1 || Math.Abs(start.file - end.file) == 0) &&
                 (Math.Abs(start.rank - end.rank) == 1 || Math.Abs(start.rank - end.rank) == 0)
-                ) return true;
-
-
-            return false;
+                );
         }
 
         internal static List<Move> LegalMoves(Square start, Color color)
@@ -66,38 +63,80 @@ namespace GameCore
                 }
             }
 
-            if (UnderCheck.CurrentPlayer() == false)
+            // Castle
+
+            if (color == Color.White) // White
             {
-                if (color == Color.White) // White
+                // King under check
+                if (GameState.UnderCheckWhite) return output;
+
+                if (GameState.CastleWhite_OO)
                 {
-                    if (GameState.CastleWhite_OO)
-                    {
-                        if (UnderCheck.BlackAttackingSquare(new Square(6, 1))) return output;
-                        if (UnderCheck.BlackAttackingSquare(new Square(7, 1))) return output;
-                        output.Add(new Move(start, new Square(7, 1), MoveInfo.White_OO));
-                    }
-                    if (GameState.CastleWhite_OOO)
-                    {
-                        if (UnderCheck.BlackAttackingSquare(new Square(4, 1))) return output;
-                        if (UnderCheck.BlackAttackingSquare(new Square(3, 1))) return output;
-                        output.Add(new Move(start, new Square(3, 1), MoveInfo.White_OOO));
-                    }
+                    Square s1 = new Square(6, 1);
+                    Square s2 = new Square(7, 1);
+
+                    // Free squares
+                    if (GameState.Board.ContainsKey(s1)) return output;
+                    if (GameState.Board.ContainsKey(s2)) return output;
+
+                    // Not attacked squares
+                    if (UnderCheck.AttackingSquareBlack(s1)) return output;
+                    if (UnderCheck.AttackingSquareBlack(s2)) return output;
+
+                    output.Add(new Move(start, s2, MoveInfo.White_OO));
                 }
-                else // Black
+                if (GameState.CastleWhite_OOO)
                 {
-                    if (GameState.CastleBlack_OO)
-                    {
-                        if (UnderCheck.WhiteAttackingSquare(new Square(6, 8))) return output;
-                        if (UnderCheck.WhiteAttackingSquare(new Square(7, 8))) return output;
-                        output.Add(new Move(start, new Square(7, 8), MoveInfo.Black_OO));
-                    }
-                    if (GameState.CastleBlack_OOO)
-                    {
-                        if (UnderCheck.WhiteAttackingSquare(new Square(4, 8))) return output;
-                        if (UnderCheck.WhiteAttackingSquare(new Square(3, 8))) return output;
-                        output.Add(new Move(start, new Square(3, 8), MoveInfo.Black_OOO));
-                    }
+                    Square s1 = new Square(4, 1);
+                    Square s2 = new Square(3, 1);
+
+                    // Free squares
+                    if (GameState.Board.ContainsKey(s1)) return output;
+                    if (GameState.Board.ContainsKey(s2)) return output;
+
+                    // Not attacked squares
+                    if (UnderCheck.AttackingSquareBlack(s1)) return output;
+                    if (UnderCheck.AttackingSquareBlack(s2)) return output;
+
+                    output.Add(new Move(start, s2, MoveInfo.White_OOO));
                 }
+            }
+            else // Black
+            {
+                // King under check
+                if (GameState.UnderCheckBlack) return output;
+
+                if (GameState.CastleBlack_OO)
+                {
+                    Square s1 = new Square(6, 8);
+                    Square s2 = new Square(7, 8);
+
+                    // Free squares
+                    if (GameState.Board.ContainsKey(s1)) return output;
+                    if (GameState.Board.ContainsKey(s2)) return output;
+
+                    // Not attacked squares
+                    if (UnderCheck.AttackingSquareWhite(s1)) return output;
+                    if (UnderCheck.AttackingSquareWhite(s2)) return output;
+
+                    output.Add(new Move(start, s2, MoveInfo.Black_OO));
+                }
+                if (GameState.CastleBlack_OOO)
+                {
+                    Square s1 = new Square(6, 8);
+                    Square s2 = new Square(7, 8);
+
+                    // Free squares
+                    if (GameState.Board.ContainsKey(s1)) return output;
+                    if (GameState.Board.ContainsKey(s2)) return output;
+
+                    // Not attacked squares
+                    if (UnderCheck.AttackingSquareWhite(s1)) return output;
+                    if (UnderCheck.AttackingSquareWhite(s2)) return output;
+
+                    output.Add(new Move(start, s2, MoveInfo.Black_OOO));
+                }
+
             }
 
             return output;

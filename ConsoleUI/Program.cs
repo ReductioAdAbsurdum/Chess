@@ -6,17 +6,15 @@ namespace ConsoleUI
 {
     class Program
     {
-        // 0.219 ms --- Start
+        // Get legal moves 65 µs Start
+        // 59 µs Bishop L
+        // 58.5 µs King branchless
+        // 53.9 µs King castle fix
+        // Added global variable under check that updates at start of the move 54.2 µs
 
-        // 0.161 ms -> Bishop
-        // 0.115 ms -> Queen
-        // 0.105 ms -> King
-        // 0.090 ms -> Pawn
-
-        // 0.1 - 0.09 Current
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/8/8/8/8/8/8/RNBQKBNR w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             Stopwatch s = new Stopwatch();
             
@@ -24,20 +22,24 @@ namespace ConsoleUI
 
             s.Start();
 
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 25_000; i++)
             {
                 var X = LegalMoves.GetAll();
             }
 
-            Console.WriteLine(s.ElapsedMilliseconds);
+            s.Stop();
+            Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
+            
             s.Reset();
             s.Start();
-            for (int i = 0; i < 100000; i++)
+
+            for (int i = 0; i < 25_000; i++)
             {
                 var X = LegalMoves.GetAll();
             }
-
-            Console.WriteLine(s.ElapsedMilliseconds);
+            
+            s.Stop();
+            Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
 
         }
     }
