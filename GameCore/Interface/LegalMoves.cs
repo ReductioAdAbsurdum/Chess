@@ -31,6 +31,45 @@ namespace GameCore
 
             return output;
         }
+        internal static List<Move> GetAll(Mutation mutation)
+        {
+            // Update king under check at the start of the move
+            if (GameState.CurrentPlayer == Color.White)
+            {
+                GameState.UnderCheckWhite = UnderCheck.AttackingSquareBlack(mutation.KingPositionWhite, mutation);
+            }
+            else
+            {
+                GameState.UnderCheckBlack = UnderCheck.AttackingSquareWhite(mutation.KingPositionBlack, mutation);
+            }
+
+            var output = new List<Move>();
+
+            foreach (Square s in GameState.Board.Keys)
+            {
+                Color c = GameState.Board[s].color;
+                if (c != mutation.CurrentPlayer) continue;
+                // Dont check if piece has been removed;
+                if (mutation.Removed.Contains(s)) continue;
+
+                PieceType p = GameState.Board[s].type;
+
+                output.AddRange(PieceLegalMoves(s, c, p, mutation));
+            }
+
+            // Check for added pieces
+            foreach (Square s in mutation.Added.Keys)
+            {
+                Color c = mutation.Added[s].color;
+                if (c != mutation.CurrentPlayer) continue;
+                
+                PieceType p = GameState.Board[s].type;
+
+                output.AddRange(PieceLegalMoves(s, c, p, mutation));
+            }
+
+            return output;
+        }
         public static void MakeMove(Move move)
         {
             // Break if there is no legal move
@@ -188,6 +227,20 @@ namespace GameCore
                 case PieceType.Knight: return Knight.LegalMoves(start, color);
                 case PieceType.King: return King.LegalMoves(start, color);
                 case PieceType.Queen: return Queen.LegalMoves(start, color);
+            }
+
+            return new List<Move>();
+        }
+        private static List<Move> PieceLegalMoves(Square start, Color color, PieceType piece, Mutation mutation)
+        {
+            switch (piece)
+            {
+                case PieceType.Pawn: return Pawn.LegalMoves(start, color, mutation);
+                case PieceType.Rook: return Rook.LegalMoves(start, color, mutation);
+                case PieceType.Bishop: return Bishop.LegalMoves(start, color, mutation);
+                case PieceType.Knight: return Knight.LegalMoves(start, color, mutation);
+                case PieceType.King: return King.LegalMoves(start, color, mutation);
+                case PieceType.Queen: return Queen.LegalMoves(start, color, mutation);
             }
 
             return new List<Move>();

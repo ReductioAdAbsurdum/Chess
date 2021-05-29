@@ -18,7 +18,7 @@ namespace GameCore
 
             return false;
         }
-
+        
         internal static List<Move> LegalMoves(Square start, Color color)
         {
             List<Move> output = new List<Move>();

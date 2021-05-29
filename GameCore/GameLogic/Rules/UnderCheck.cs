@@ -55,6 +55,29 @@ namespace GameCore
 
             return false;
         }
+        internal static bool AttackingSquareWhite(Square square, Mutation mutation)
+        {
+            // Check Board pieces without removed
+            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
+            {
+                // Dont check if same color as current player/black
+                if (pair.Value.color == Color.Black) continue;
+                // Dont check if piece has been removed;
+                if (mutation.Removed.Contains(pair.Key)) continue;
+
+                if (PieceAttackingSquare(pair.Key, square, mutation)) return true;
+            }
+            // Check for added pieces
+            foreach (KeyValuePair<Square, Piece> pair in mutation.Added)
+            {
+                // Dont check if same color as current player/white
+                if (pair.Value.color == Color.White) continue;
+
+                if (PieceAttackingSquare(pair.Key, square, mutation)) return true;
+            }
+
+            return false;
+        }
         internal static bool AttackingSquareBlack(Square square) 
         {
             foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
@@ -62,6 +85,30 @@ namespace GameCore
                 if (pair.Value.color == Color.White) continue;
 
                 if (PieceAttackingSquare(pair.Key, square)) return true;
+            }
+
+            return false;
+        }
+        internal static bool AttackingSquareBlack(Square square, Mutation mutation)
+        {
+            // Check Board pieces without removed
+            foreach (KeyValuePair<Square, Piece> pair in GameState.Board)
+            {
+                // Dont check if same color as current player/white
+                if (pair.Value.color == Color.White) continue;
+                // Dont check if piece has been removed;
+                if (mutation.Removed.Contains(pair.Key)) continue;
+
+                if (PieceAttackingSquare(pair.Key, square, mutation)) return true;
+            }
+            
+            // Check for added pieces
+            foreach (KeyValuePair<Square, Piece> pair in mutation.Added)
+            {
+                // Dont check if same color as current player/white
+                if (pair.Value.color == Color.White) continue;
+
+                if (PieceAttackingSquare(pair.Key, square, mutation)) return true;
             }
 
             return false;
@@ -81,6 +128,25 @@ namespace GameCore
                 case PieceType.King: return King.AttackingSquare(start, end);
 
                 case PieceType.Queen: return Queen.AttackingSquare(start, end, new Square(20, 20), new Square(20, 20));
+            }
+
+            return false;
+        }
+        private static bool PieceAttackingSquare(Square start, Square end, Mutation mutation)
+        {
+            switch (GameState.Board[start].type)
+            {
+                case PieceType.Pawn: return Pawn.AttackingSquare(start, end, mutation);
+
+                case PieceType.Rook: return Rook.AttackingSquare(start, end, new Square(20, 20), new Square(20, 20), mutation);
+
+                case PieceType.Bishop: return Bishop.AttackingSquare(start, end, new Square(20, 20), new Square(20, 20), mutation);
+
+                case PieceType.Knight: return Knight.AttackingSquare(start, end); // No need for mutation check
+
+                case PieceType.King: return King.AttackingSquare(start, end, mutation);
+
+                case PieceType.Queen: return Queen.AttackingSquare(start, end, new Square(20, 20), new Square(20, 20), mutation);
             }
 
             return false;

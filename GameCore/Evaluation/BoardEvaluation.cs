@@ -11,13 +11,32 @@ namespace GameCore.Evaluation
         public static int Evaluate() 
         {
             int output = 0;
+           
+            bool whiteQueen = false;
+            bool blackQueen = false;
 
             foreach (Square s in GameState.Board.Keys)
             {
-                Color c = GameState.Board[s].color;
-                if (c != GameState.CurrentPlayer) continue;
+                if (GameState.Board[s].type == PieceType.Queen) 
+                {
+                    if (GameState.Board[s].color == Color.White)
+                    {
+                        whiteQueen = true;
+                        if (blackQueen) break;
+                    }
+                    else 
+                    {
+                        blackQueen = true;
+                        if (whiteQueen) break;
+                    }
+                }
+            }
 
-                output += PieceEvaluation.Evaluate(s, GameState.Board[s].type, c, false);
+            bool endgame = !whiteQueen && !blackQueen;
+
+            foreach (Square s in GameState.Board.Keys)
+            {
+               output += PieceEvaluation.Evaluate(s, GameState.Board[s].type, GameState.Board[s].color, endgame);
             }
 
             return output;
