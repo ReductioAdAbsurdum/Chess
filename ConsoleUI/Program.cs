@@ -1,4 +1,5 @@
 ﻿using GameCore;
+using GameCore.Evaluation;
 using System;
 using System.Diagnostics;
 
@@ -9,13 +10,12 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/QQQQQQQQ/8/8/8/4K3 w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1");
+            MeasureBoardEvaluation();
 
-            var y = LegalMoves.GetAll();
 
-            MesureLegalMovesGetAll();
         }
-        static void MesureLegalMovesGetAll() 
+        static void MeasureLegalMovesGetAll() 
         {
             Stopwatch s = new Stopwatch();
 
@@ -37,6 +37,33 @@ namespace ConsoleUI
             for (int i = 0; i < 25_000; i++)
             {
                 var X = LegalMoves.GetAll();
+            }
+
+            s.Stop();
+            Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
+        }
+        static void MeasureBoardEvaluation()
+        {
+            Stopwatch s = new Stopwatch();
+
+            BoardEvaluation.Evaluate();
+
+            s.Start();
+
+            for (int i = 0; i < 25_000; i++)
+            {
+                BoardEvaluation.Evaluate();
+            }
+
+            s.Stop();
+            Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
+
+            s.Reset();
+            s.Start();
+
+            for (int i = 0; i < 25_000; i++)
+            {
+                BoardEvaluation.Evaluate();
             }
 
             s.Stop();
