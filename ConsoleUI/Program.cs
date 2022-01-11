@@ -13,10 +13,11 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1");
-
+          
             MeasureFunc<int> d1 = BoardEvaluation.Evaluate;
             MeasureFunc<List<Move>> d2 = LegalMoves.GetAll;
 
+            Console.WriteLine(LegalMoves.GetAll().Count);
             MeasureFunctionSpeed(d1);
             MeasureFunctionSpeed(d2);
 

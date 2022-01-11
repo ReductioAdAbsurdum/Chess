@@ -235,12 +235,12 @@ namespace GameCore
         {
             switch (piece)
             {
-                case PieceType.Pawn: return Pawn.LegalMoves(start, color, mutation);
-                case PieceType.Rook: return Rook.LegalMoves(start, color, mutation);
-                case PieceType.Bishop: return Bishop.LegalMoves(start, color, mutation);
-                case PieceType.Knight: return Knight.LegalMoves(start, color, mutation);
-                case PieceType.King: return King.LegalMoves(start, color, mutation);
-                case PieceType.Queen: return Queen.LegalMoves(start, color, mutation);
+                case PieceType.Pawn: return Pawn.LegalMoves(start, color);
+                case PieceType.Rook: return Rook.LegalMoves(start, color);
+                case PieceType.Bishop: return Bishop.LegalMoves(start, color);
+                case PieceType.Knight: return Knight.LegalMoves(start, color);
+                case PieceType.King: return King.LegalMoves(start, color);
+                case PieceType.Queen: return Queen.LegalMoves(start, color);
             }
 
             return new List<Move>();
