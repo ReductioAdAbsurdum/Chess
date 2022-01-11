@@ -12,20 +12,31 @@ namespace ConsoleUI
         private delegate T MeasureFunc<T>();
         static void Main(string[] args)
         {
-            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1");
+            //Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/P/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            //Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            //Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            //Fen.SetBoardByFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
           
-            MeasureFunc<int> d1 = BoardEvaluation.Evaluate;
-            MeasureFunc<List<Move>> d2 = LegalMoves.GetAll;
+            MeasureFunc<int> evaluation = BoardEvaluation.Evaluate;
+            MeasureFunc<List<Move>> legalMoves = LegalMoves.GetAll;
 
-            Console.WriteLine(LegalMoves.GetAll().Count);
-            MeasureFunctionSpeed(d1);
-            MeasureFunctionSpeed(d2);
+            Console.WriteLine($"Number of legal moves is: {LegalMoves.GetAll().Count}");
+            
+            Console.Write($"Average time to execute board evaluation is: ");
+            MeasureFunctionSpeed(evaluation);
+            Console.WriteLine();
 
-            int x = BoardEvaluation.Evaluate();
+            Console.Write($"Average time to get legal moves is: ");
+            MeasureFunctionSpeed(legalMoves);
+            Console.WriteLine();
+
+            Console.WriteLine($"Board evaluation is: {BoardEvaluation.Evaluate()}");
 
         }        
         static void MeasureFunctionSpeed<T>(MeasureFunc<T> func)
         {
+            // WarmUp first!!!
             Stopwatch s = new Stopwatch();
 
             func();
@@ -37,9 +48,7 @@ namespace ConsoleUI
                 func();
             }
 
-            s.Stop();
-            Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
-
+            s.Stop();            
             s.Reset();
             s.Start();
 
@@ -49,7 +58,7 @@ namespace ConsoleUI
             }
 
             s.Stop();
-            Console.WriteLine((decimal)s.ElapsedMilliseconds / 25 + " µs");
+            Console.Write((decimal)s.ElapsedMilliseconds / 25 + " µs");
         }
     }
 }
